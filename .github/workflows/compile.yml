@@ -18,13 +18,13 @@ jobs:
         with:
           fetch-depth: 0   # full history so we can diff which .tex changed
 
-      # Compile with a full TeX Live image (pdflatex) — matches Overleaf setup,
-      # tolerates the template's benign "Lonely \item" warnings that tectonic rejects.
-      - name: Compile changed .tex files to PDF
+      # Compile via the latexonline.cc HTTP API (no local TeX install needed).
+      # The API fetches the raw .tex from GitHub and returns the compiled PDF.
+      - name: Compile changed .tex files via HTTP API
+        shell: bash
         run: |
           set -euo pipefail
           # Determine the .tex files that changed in this push.
-          # For workflow_dispatch (no push), compile every .tex in a role folder.
           changed_tex=""
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
@@ -34,26 +34,29 @@ jobs:
             echo "No .tex changed in this event; scanning for role-folder .tex files..."
             changed_tex=$(find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' || true)
           fi
-
           if [ -z "$changed_tex" ]; then
             echo "::notice::No .tex files found to compile."
             exit 0
           fi
 
-          docker run --rm \
-            -v "$PWD":/work -w /work \
-            texlive/texlive:latest \
-            bash -c 'for f in "$@"; do
-                        echo "Compiling: $f"
-                        outdir="$(dirname "$f")"
-                        pdflatex -interaction=nonstopmode -output-directory="$outdir" "$f" >/dev/null 2>&1 \
-                          || pdflatex -interaction=nonstopmode -output-directory="$outdir" "$f" 2>&1 | tail -20
-                      done' _ $changed_tex
-
-          # Clean up auxiliary files (keep only the .pdf next to each .tex)
-          find . -name '*.aux' -o -name '*.log' -o -name '*.out' -o -name '*.toc' \
-            -o -name '*.fls' -o -name '*.fdb_latexmk' | xargs -r rm -f
-          echo "::notice::PDFs generated."
+          REF="${{ github.sha }}"
+          for f in $changed_tex; do
+            echo "Compiling: $f"
+            raw_url="https://raw.githubusercontent.com/${{ github.repository }}/${REF}/${f}"
+            outdir="$(dirname "$f")"
+            outname="$(basename "${f%.tex}.pdf")"
+            curl -fsSL --max-time 180 \
+              "https://latexonline.cc/compile?url=${raw_url}&force=1" \
+              -o "${outdir}/${outname}" \
+            || { echo "::error::Failed to compile ${f} via HTTP API"; exit 1; }
+            # Verify it's really a PDF (the API returns text on failure)
+            if ! file "${outdir}/${outname}" | grep -qi 'PDF document'; then
+              echo "::error::${f} did not produce a PDF:"
+              cat "${outdir}/${outname}"
+              exit 1
+            fi
+            echo "::notice::Generated ${outdir}/${outname}"
+          done
 
       - name: Commit compiled PDFs
         run: |

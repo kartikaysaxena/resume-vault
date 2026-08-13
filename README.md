@@ -21,9 +21,12 @@ resume-vault/
 A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sync with its `.tex`:
 
 - **Trigger:** any push that changes a `.tex` file (in any role folder), or a manual `workflow_dispatch` run.
-- **Action:** compiles every changed `.tex` to PDF using a full **TeX Live (pdflatex)** image — the same compiler as Overleaf, so it tolerates the template's benign `Lonely \item` warnings that strict compilers like tectonic reject.
+- **Action:** compiles every changed `.tex` to PDF using the **latexonline.cc HTTP API** — no TeX toolchain is installed on the runner. The API fetches the raw `.tex` from GitHub and returns the compiled PDF.
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
 - **Result:** the PDF in a folder is always up-to-date with its `.tex`.
+
+> **Why the template has three small edits vs. a stock Overleaf file:** the latexonline API ships `fontawesome` (v4) not `fontawesome5`, and it is strict about two benign issues that Overleaf/pdflatex tolerate (`Lonely \item` from un-opened lists, and a missing 4th arg on the project heading). The edits produce identical visual output. If you ever move to a full local TeX install, these are harmless.
+
 
 ## ➕ How to add / update a resume
 
