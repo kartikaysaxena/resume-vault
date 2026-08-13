@@ -7,11 +7,18 @@ on:
       - "**/*.tex"
   workflow_dispatch: {}
 
+permissions:
+  contents: write      # commit the compiled PDF back
+  pages: write         # deploy to GitHub Pages
+  id-token: write      # required for Pages deploy auth
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   compile:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # allow committing the compiled PDF back
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,7 +31,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Determine the .tex files that changed in this push.
           changed_tex=""
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
@@ -49,7 +55,6 @@ jobs:
               "https://latexonline.cc/compile?url=${raw_url}&force=1" \
               -o "${outdir}/${outname}" \
             || { echo "::error::Failed to compile ${f} via HTTP API"; exit 1; }
-            # Verify it's really a PDF (the API returns text on failure)
             if ! file "${outdir}/${outname}" | grep -qi 'PDF document'; then
               echo "::error::${f} did not produce a PDF:"
               cat "${outdir}/${outname}"
@@ -71,3 +76,59 @@ jobs:
           git commit -m "chore: recompile resume PDFs from .tex changes"
           git push origin "${{ github.ref_name }}"
           echo "::notice::Committed recompiled PDFs."
+
+      # Publish every folder's PDF to GitHub Pages under a STATIC URL.
+      # URL is derived from the folder + filename, so it stays constant across
+      # every recompile of the same resume.
+      - name: Prepare Pages artifact (static PDF URLs)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          # Copy each role folder's PDF + tex, preserving folder structure.
+          for d in */; do
+            d="${d%/}"
+            # skip dot-dirs like .github
+            [[ "$d" == .* ]] && continue
+            for pdf in "$d"/*.pdf; do
+              [ -e "$pdf" ] || continue
+              mkdir -p "_site/$d"
+              cp "$pdf" "_site/$d/"
+              # also carry the .tex alongside for reference
+              tex="${pdf%.pdf}.tex"
+              [ -e "$tex" ] && cp "$tex" "_site/$d/" || true
+            done
+          done
+          # A simple index page listing all available resumes
+          {
+            echo "# Resume Vault"
+            echo
+            echo "Stable URLs (same link every iteration):"
+            echo
+            for d in */; do
+              d="${d%/}"
+              [[ "$d" == .* ]] && continue
+              for pdf in "$d"/*.pdf; do
+                [ -e "$pdf" ] || continue
+                echo "- [${d}/$(basename "$pdf")](/${d}/$(basename "$pdf"))"
+              done
+            done
+          } > _site/index.md
+          echo "::notice::Pages artifact prepared."
+          ls -R _site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: compile
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

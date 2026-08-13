@@ -23,7 +23,17 @@ A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sy
 - **Trigger:** any push that changes a `.tex` file (in any role folder), or a manual `workflow_dispatch` run.
 - **Action:** compiles every changed `.tex` to PDF using the **latexonline.cc HTTP API** — no TeX toolchain is installed on the runner. The API fetches the raw `.tex` from GitHub and returns the compiled PDF.
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
-- **Result:** the PDF in a folder is always up-to-date with its `.tex`.
+- **Publish:** every folder's PDF is deployed to **GitHub Pages** under a **static URL** (same link every recompile of the same resume).
+- **Result:** the PDF in a folder is always up-to-date with its `.tex`, and always reachable at the same shareable link.
+
+### Static PDF URLs (GitHub Pages)
+Each resume has a permanent URL derived from its folder + filename. It never changes across iterations:
+
+```
+https://kartikaysaxena.github.io/resume-vault/<folder>/<resume>.pdf
+```
+
+Example: `https://kartikaysaxena.github.io/resume-vault/software_engineer/software-engineer.pdf`
 
 > **Why the template has three small edits vs. a stock Overleaf file:** the latexonline API ships `fontawesome` (v4) not `fontawesome5`, and it is strict about two benign issues that Overleaf/pdflatex tolerate (`Lonely \item` from un-opened lists, and a missing 4th arg on the project heading). The edits produce identical visual output. If you ever move to a full local TeX install, these are harmless.
 
