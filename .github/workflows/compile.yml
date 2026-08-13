@@ -1,0 +1,70 @@
+name: Compile Resume PDFs
+
+# Trigger when any .tex file changes in a role folder (or manual dispatch).
+on:
+  push:
+    paths:
+      - "**/*.tex"
+  workflow_dispatch: {}
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # allow committing the compiled PDF back
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so we can diff which .tex changed
+
+      # Compile with a full TeX Live image (pdflatex) — matches Overleaf setup,
+      # tolerates the template's benign "Lonely \item" warnings that tectonic rejects.
+      - name: Compile changed .tex files to PDF
+        run: |
+          set -euo pipefail
+          # Determine the .tex files that changed in this push.
+          # For workflow_dispatch (no push), compile every .tex in a role folder.
+          changed_tex=""
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
+              | grep -E '\.tex$' || true)
+          fi
+          if [ -z "$changed_tex" ]; then
+            echo "No .tex changed in this event; scanning for role-folder .tex files..."
+            changed_tex=$(find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' || true)
+          fi
+
+          if [ -z "$changed_tex" ]; then
+            echo "::notice::No .tex files found to compile."
+            exit 0
+          fi
+
+          docker run --rm \
+            -v "$PWD":/work -w /work \
+            texlive/texlive:latest \
+            bash -c 'for f in "$@"; do
+                        echo "Compiling: $f"
+                        outdir="$(dirname "$f")"
+                        pdflatex -interaction=nonstopmode -output-directory="$outdir" "$f" >/dev/null 2>&1 \
+                          || pdflatex -interaction=nonstopmode -output-directory="$outdir" "$f" 2>&1 | tail -20
+                      done' _ $changed_tex
+
+          # Clean up auxiliary files (keep only the .pdf next to each .tex)
+          find . -name '*.aux' -o -name '*.log' -o -name '*.out' -o -name '*.toc' \
+            -o -name '*.fls' -o -name '*.fdb_latexmk' | xargs -r rm -f
+          echo "::notice::PDFs generated."
+
+      - name: Commit compiled PDFs
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit (PDFs unchanged)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: recompile resume PDFs from .tex changes"
+          git push origin "${{ github.ref_name }}"
+          echo "::notice::Committed recompiled PDFs."
