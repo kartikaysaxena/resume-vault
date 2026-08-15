@@ -1,10 +1,14 @@
 name: Compile Resume PDFs
 
-# Trigger when any .tex file changes in a role folder (or manual dispatch).
+# Rebuild PDFs when TeX changes and republish when catalog metadata changes.
 on:
   push:
     paths:
       - "**/*.tex"
+      - "**/resume.json"
+      - "scripts/generate_manifest.py"
+      - "scripts/test_generate_manifest.py"
+      - ".github/workflows/compile.yml"
   workflow_dispatch: {}
 
 permissions:
@@ -36,12 +40,12 @@ jobs:
             changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
               | grep -E '\.tex$' || true)
           fi
-          if [ -z "$changed_tex" ]; then
-            echo "No .tex changed in this event; scanning for role-folder .tex files..."
+          if [ -z "$changed_tex" ] && [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            echo "Manual run; scanning for role-folder .tex files..."
             changed_tex=$(find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' || true)
           fi
           if [ -z "$changed_tex" ]; then
-            echo "::notice::No .tex files found to compile."
+            echo "::notice::No changed .tex files to compile."
             exit 0
           fi
 
@@ -66,56 +70,29 @@ jobs:
       - name: Commit compiled PDFs
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain)" ]; then
+          if [ -z "$(git status --porcelain -- '*.pdf')" ]; then
             echo "No changes to commit (PDFs unchanged)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add -- ':(glob)**/*.pdf'
           git commit -m "chore: recompile resume PDFs from .tex changes"
           git push origin "${{ github.ref_name }}"
           echo "::notice::Committed recompiled PDFs."
 
-      # Publish every folder's PDF to GitHub Pages under a STATIC URL.
-      # URL is derived from the folder + filename, so it stays constant across
-      # every recompile of the same resume.
-      - name: Prepare Pages artifact (static PDF URLs)
-        shell: bash
+      - name: Test manifest generator
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+
+      - name: Prepare validated Pages artifact
         run: |
-          set -euo pipefail
-          mkdir -p _site
-          # Copy each role folder's PDF + tex, preserving folder structure.
-          for d in */; do
-            d="${d%/}"
-            # skip dot-dirs like .github
-            [[ "$d" == .* ]] && continue
-            for pdf in "$d"/*.pdf; do
-              [ -e "$pdf" ] || continue
-              mkdir -p "_site/$d"
-              cp "$pdf" "_site/$d/"
-              # also carry the .tex alongside for reference
-              tex="${pdf%.pdf}.tex"
-              [ -e "$tex" ] && cp "$tex" "_site/$d/" || true
-            done
-          done
-          # A simple index page listing all available resumes
-          {
-            echo "# Resume Vault"
-            echo
-            echo "Stable URLs (same link every iteration):"
-            echo
-            for d in */; do
-              d="${d%/}"
-              [[ "$d" == .* ]] && continue
-              for pdf in "$d"/*.pdf; do
-                [ -e "$pdf" ] || continue
-                echo "- [${d}/$(basename "$pdf")](/${d}/$(basename "$pdf"))"
-              done
-            done
-          } > _site/index.md
-          echo "::notice::Pages artifact prepared."
-          ls -R _site
+          python scripts/generate_manifest.py \
+            --site _site \
+            --repository "${{ github.repository }}" \
+            --revision "${{ github.sha }}" \
+            --pages-base-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          printf '# Resume Vault\n\nSee [manifest.json](./manifest.json) for the machine-readable catalog.\n' > _site/index.md
+          find _site -maxdepth 3 -type f -print
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

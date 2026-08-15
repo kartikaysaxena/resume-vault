@@ -1,0 +1,13 @@
+{
+  "id": "software_engineer",
+  "display_name": "Software Engineer",
+  "status": "active",
+  "source": "software-engineer.tex",
+  "pdf": "software-engineer.pdf",
+  "role_families": ["backend", "full_stack", "platform", "cloud_native"],
+  "skills": [
+    "Go", "Python", "TypeScript", "SQL", "AWS", "Docker", "Kubernetes",
+    "MongoDB", "Redis", "gRPC", "Prometheus", "OpenTelemetry"
+  ],
+  "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience."
+}
