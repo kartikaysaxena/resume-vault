@@ -1,20 +1,22 @@
-name: Compile Resume PDFs
+name: Compile resume artifacts
 
-# Rebuild PDFs when TeX changes and republish when catalog metadata changes.
 on:
   push:
     paths:
       - "**/*.tex"
       - "**/resume.json"
+      - "llm-profile.json"
       - "scripts/generate_manifest.py"
+      - "scripts/generate_profile.py"
       - "scripts/test_generate_manifest.py"
+      - "scripts/test_generate_profile.py"
       - ".github/workflows/compile.yml"
   workflow_dispatch: {}
 
 permissions:
-  contents: write      # commit the compiled PDF back
-  pages: write         # deploy to GitHub Pages
-  id-token: write      # required for Pages deploy auth
+  contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -27,30 +29,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full history so we can diff which .tex changed
+          fetch-depth: 0
 
-      # Compile via the latexonline.cc HTTP API (no local TeX install needed).
-      # The API fetches the raw .tex from GitHub and returns the compiled PDF.
-      - name: Compile changed .tex files via HTTP API
+      - name: Detect changed TeX sources
+        id: changes
         shell: bash
         run: |
           set -euo pipefail
           changed_tex=""
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
-              | grep -E '\.tex$' || true)
-          fi
-          if [ -z "$changed_tex" ] && [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            echo "Manual run; scanning for role-folder .tex files..."
+            changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -E '\.tex$' || true)
+          elif [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             changed_tex=$(find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' || true)
           fi
-          if [ -z "$changed_tex" ]; then
-            echo "::notice::No changed .tex files to compile."
+          {
+            echo 'files<<EOF'
+            echo "$changed_tex"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Compile changed TeX files
+        env:
+          CHANGED_TEX: ${{ steps.changes.outputs.files }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "$CHANGED_TEX" ]; then
+            echo "::notice::No changed TeX files to compile."
             exit 0
           fi
 
           REF="${{ github.sha }}"
-          for f in $changed_tex; do
+          while IFS= read -r f; do
+            [ -n "$f" ] || continue
             echo "Compiling: $f"
             raw_url="https://raw.githubusercontent.com/${{ github.repository }}/${REF}/${f}"
             outdir="$(dirname "$f")"
@@ -65,23 +76,32 @@ jobs:
               exit 1
             fi
             echo "::notice::Generated ${outdir}/${outname}"
-          done
+          done <<< "$CHANGED_TEX"
 
-      - name: Commit compiled PDFs
+      - name: Generate candidate profile from changed resumes
+        if: steps.changes.outputs.files != ''
+        env:
+          PROFILE_LLM_API_KEY: ${{ secrets.PROFILE_LLM_API_KEY }}
+          PROFILE_LLM_MODEL: ${{ vars.PROFILE_LLM_MODEL }}
+          PROFILE_LLM_BASE_URL: ${{ vars.PROFILE_LLM_BASE_URL }}
+        run: python scripts/generate_profile.py
+
+      - name: Commit generated resume artifacts
+        shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- '*.pdf')" ]; then
-            echo "No changes to commit (PDFs unchanged)."
+          if [ -z "$(git status --porcelain -- '*.pdf' 'llm-profile.json')" ]; then
+            echo "No generated changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- ':(glob)**/*.pdf'
-          git commit -m "chore: recompile resume PDFs from .tex changes"
+          git add -- ':(glob)**/*.pdf' 'llm-profile.json'
+          git commit -m "chore: regenerate resume artifacts"
           git push origin "${{ github.ref_name }}"
-          echo "::notice::Committed recompiled PDFs."
+          echo "::notice::Committed regenerated resume artifacts."
 
-      - name: Test manifest generator
+      - name: Test artifact generators
         run: python -m unittest discover -s scripts -p 'test_*.py'
 
       - name: Prepare validated Pages artifact

@@ -63,6 +63,15 @@ def build_manifest(
     revision: str,
     pages_base_url: str,
 ) -> dict[str, Any]:
+    profile_path = root / "llm-profile.json"
+    if not profile_path.is_file():
+        raise ValueError("missing llm-profile.json")
+    profile = json.loads(profile_path.read_text(encoding="utf-8"))
+    if profile.get("version") != 1 or not profile.get("name") or not profile.get("source_revision"):
+        raise ValueError("llm-profile.json is missing version, name, or source_revision")
+    site.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(profile_path, site / "llm-profile.json")
+
     resumes = []
     ids: set[str] = set()
     for metadata_path in sorted(root.glob("*/resume.json")):
@@ -99,7 +108,13 @@ def build_manifest(
     if not resumes:
         raise ValueError("no active resumes found")
 
-    manifest = {"version": 1, "source_revision": revision, "resumes": resumes}
+    manifest = {
+        "version": 1,
+        "source_revision": revision,
+        "profile_url": f"{pages_base_url.rstrip('/')}/llm-profile.json",
+        "profile_sha256": sha256(profile_path),
+        "resumes": resumes,
+    }
     site.mkdir(parents=True, exist_ok=True)
     (site / "manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"

@@ -12,6 +12,9 @@ class ManifestTests(unittest.TestCase):
     def test_builds_urls_hashes_and_pages_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
+            (root / "llm-profile.json").write_text(json.dumps({
+                "version": 1, "name": "Kartikay", "source_revision": "abc123",
+            }), encoding="utf-8")
             folder = root / "backend"
             folder.mkdir()
             (folder / "backend.tex").write_text("tex", encoding="utf-8")
@@ -36,6 +39,8 @@ class ManifestTests(unittest.TestCase):
             self.assertIn("abc123/backend/backend.tex", resume["source_url"])
             self.assertTrue((site / "backend/backend.pdf").is_file())
             self.assertTrue((site / "manifest.json").is_file())
+            self.assertTrue((site / "llm-profile.json").is_file())
+            self.assertEqual(manifest["profile_url"], "https://owner.github.io/vault/llm-profile.json")
 
 
 if __name__ == "__main__":

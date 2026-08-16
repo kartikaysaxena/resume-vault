@@ -12,6 +12,7 @@ resume-vault/
 │   └── resume.json
 ├── research_engineer/     ← placeholder (no resume yet)
 ├── ml_engineer/           ← placeholder (no resume yet)
+├── llm-profile.json      ← generated compact candidate context
 └── .github/workflows/     ← auto-compile pipeline
 ```
 
@@ -24,6 +25,7 @@ A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sy
 - **Trigger:** any push that changes a `.tex` file (in any role folder), or a manual `workflow_dispatch` run.
 - **Action:** compiles every changed `.tex` to PDF using the **latexonline.cc HTTP API** — no TeX toolchain is installed on the runner. The API fetches the raw `.tex` from GitHub and returns the compiled PDF.
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
+- **Profile:** on every TeX change, the workflow asks an OpenAI-compatible model for one factual JSON profile and commits it at the repository root.
 - **Publish:** active PDFs and a validated `manifest.json` catalog are deployed to **GitHub Pages**. TeX remains available from its pinned GitHub source revision rather than being copied into Pages.
 - **Result:** the PDF in a folder is always up-to-date with its `.tex`, and always reachable at the same shareable link.
 
@@ -37,6 +39,10 @@ https://kartikaysaxena.github.io/resume-vault/<folder>/<resume>.pdf
 Example: `https://kartikaysaxena.github.io/resume-vault/software_engineer/software-engineer.pdf`
 
 Catalog: `https://kartikaysaxena.github.io/resume-vault/manifest.json`
+
+Candidate profile: `https://kartikaysaxena.github.io/resume-vault/llm-profile.json`
+
+Set the repository Actions secret `PROFILE_LLM_API_KEY`. Optional Actions variables `PROFILE_LLM_MODEL` and `PROFILE_LLM_BASE_URL` select another OpenAI-compatible model or endpoint; the defaults are `deepseek/deepseek-chat` through OpenRouter. Profile generation consumes tokens only when a TeX source changes (or the workflow is run manually). Job Mailer fetches the published result instead of making a separate profile-generation call.
 
 > **Why the template has three small edits vs. a stock Overleaf file:** the latexonline API ships `fontawesome` (v4) not `fontawesome5`, and it is strict about two benign issues that Overleaf/pdflatex tolerate (`Lonely \item` from un-opened lists, and a missing 4th arg on the project heading). The edits produce identical visual output. If you ever move to a full local TeX install, these are harmless.
 

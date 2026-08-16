@@ -1,0 +1,82 @@
+{
+  "achievements": [
+    "Secured 6th rank in Inter IIT Tech Meet 12.0",
+    "Solved 200 DSA problems on LeetCode and Codeforces",
+    "Placed in the top 1 percentile of almost 1 million IIT applicants"
+  ],
+  "contact": {
+    "email": "kartikay_2101ce32@iitp.ac.in",
+    "github": "https://github.com/kartikaysaxena",
+    "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
+    "website": "https://ksaxena.tech"
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Technology",
+      "institution": "Indian Institute of Technology Patna",
+      "year": "2025"
+    }
+  ],
+  "experience": [
+    {
+      "highlights": [
+        "Created 17 Python data migration scripts",
+        "Automated AWS production operations with CloudFormation, decreasing deployment time by 67%",
+        "Optimized a Django API from 35.7s to 3.7s",
+        "Used Bun to reduce compile and run time by 53%"
+      ],
+      "organization": "Assured Health Technologies",
+      "period": "August 2025 - January 2026",
+      "role": "Software Engineering Consultant"
+    },
+    {
+      "highlights": [
+        "Developed an upgrade agent for LitmusChaos",
+        "Automated MongoDB schema upgrades",
+        "Reduced auth-server login latency from 1.73s to 15.87ms"
+      ],
+      "organization": "Cloud Native Computing Foundation / LitmusChaos",
+      "period": "July 2024 - September 2024",
+      "role": "Software Engineering Intern"
+    },
+    {
+      "highlights": [
+        "Designed a Go SDK for the CORD blockchain with 95% test coverage",
+        "Added unit and fuzz tests and introduced DevOps practices"
+      ],
+      "organization": "Code for GovTech / Dhiway",
+      "period": "June 2024 - August 2024",
+      "role": "Software Engineering Intern"
+    },
+    {
+      "highlights": [
+        "Built a TypeScript and Node.js proxy on Cloudflare Workers serving 50K+ requests per day at 99.9% uptime",
+        "Converted Google Maps URIs for Organic Maps and reduced load time by 60%"
+      ],
+      "organization": "Google Summer of Code / Organic Maps",
+      "period": "April 2023 - July 2023",
+      "role": "Software Developer Intern"
+    }
+  ],
+  "headline": "Software Engineer focused on backend, cloud-native systems, APIs, and developer tooling",
+  "name": "Kartikay Saxena",
+  "projects": [
+    {
+      "highlights": [
+        "Implemented Redis-based caching and IP rate throttling over gRPC",
+        "Exposed Prometheus and Grafana metrics"
+      ],
+      "name": "Go-microservice",
+      "summary": "HTTP API server with Redis caching, gRPC rate limiting, and observability",
+      "url": "https://github.com/kartikaysaxena/go-microservice"
+    }
+  ],
+  "skills": {
+    "frameworks": ["ExpressJS", "ReactJS", "Socket.io", "Web3JS", "jQuery"],
+    "infrastructure": ["AWS", "Ansible", "Docker", "Prometheus", "Apache Kafka", "Thanos", "OpenTelemetry", "Kubernetes", "MongoDB", "MySQL"],
+    "languages": ["JavaScript", "TypeScript", "Go", "Python", "Rust", "C++", "PHP", "SQL"]
+  },
+  "source_revision": "3e69b66e1579cc80710ee5943a2895e4a9aa5350",
+  "summary": "Software engineer with experience in backend performance, cloud infrastructure, developer tooling, distributed systems, and production automation.",
+  "version": 1
+}
