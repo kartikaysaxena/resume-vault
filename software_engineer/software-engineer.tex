@@ -40,18 +40,18 @@
 %\addtolength{\textwidth}{1in}
 \usepackage[most]{tcolorbox}
 \tcbset{
-	frame code={}
-	center title,
-	left=0pt,
-	right=0pt,
-	top=0pt,
-	bottom=0pt,
-	colback=gray!20,
-	colframe=white,
-	width=\dimexpr\textwidth\relax,
-	enlarge left by=-2mm,
-	boxsep=4pt,
-	arc=0pt,outer arc=0pt,
+        frame code={}
+        center title,
+        left=0pt,
+        right=0pt,
+        top=0pt,
+        bottom=0pt,
+        colback=gray!20,
+        colframe=white,
+        width=\dimexpr\textwidth\relax,
+        enlarge left by=-2mm,
+        boxsep=4pt,
+        arc=0pt,outer arc=0pt,
 }
 
 \urlstyle{same}
@@ -142,15 +142,15 @@
 
 
 \parbox{\dimexpr\linewidth-1.0cm\relax}{
-	\begin{tabularx}{\linewidth}{L r} \\
-		\textbf{\Large \name}                  & {\raisebox{0.0\height}{\footnotesize \faPhone}\ +91-8433075312}                                                                         \\
-		{Indian Institute of Technology Patna} & \href{mailto:kartikay\_2101ce32@iitp.ac.in}{\raisebox{0.0\height}{\footnotesize \faEnvelope}\ \nolinkurl{kartikay_2101ce32@iitp.ac.in}}
+        \begin{tabularx}{\linewidth}{L r} \\
+                \textbf{\Large \name}                  & {\raisebox{0.0\height}{\footnotesize \faPhone}\ +91-8433075312}                                                                         \\
+                {Indian Institute of Technology Patna} & \href{mailto:kartikay\_2101ce32@iitp.ac.in}{\raisebox{0.0\height}{\footnotesize \faEnvelope}\ \nolinkurl{kartikay_2101ce32@iitp.ac.in}}
 
                                                   \\
-		                                       & \href{https://ksaxena.tech}{\raisebox{0.0\height}{\footnotesize \faGlobe}\ {ksaxena.tech}}                                          \\
-		                                       & \href{https://github.com/kartikaysaxena}{\raisebox{0.0\height}{\footnotesize \faGithub}\ {GitHub Profile}}                          \\
-		{}                                     & \href{https://www.linkedin.com/in/kartikay-saxena-33ba01223/}{\raisebox{0.0\height}{\footnotesize \faLinkedin}\ {LinkedIn Profile}} 
-	\end{tabularx}
+                                                       & \href{https://ksaxena.tech}{\raisebox{0.0\height}{\footnotesize \faGlobe}\ {ksaxena.tech}}                                          \\
+                                                       & \href{https://github.com/kartikaysaxena}{\raisebox{0.0\height}{\footnotesize \faGithub}\ {GitHub Profile}}                          \\
+                {}                                     & \href{https://www.linkedin.com/in/kartikay-saxena-33ba01223/}{\raisebox{0.0\height}{\footnotesize \faLinkedin}\ {LinkedIn Profile}} 
+        \end{tabularx}
 }
 % \parbox{3.0cm}{%
 % \flushright \includegraphics[width=2cm,clip]{nitp_logo.png}
@@ -169,7 +169,17 @@
 % \vspace{-2mm}
 \resumeSubHeadingListStart
 \resumeSubheading
-{Software Engineering Consultant}{Bengaluru}
+{ AI Research Engineer}{Bengaluru}
+{Metafore}{January 2026 - Present}
+\resumeItemListStart
+\item {Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.}
+\item {Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.}
+\item {Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD).}
+\resumeItemListEnd
+
+\vspace{-2mm}
+\resumeSubheading
+{ Software Engineering Consultant}{Bengaluru}
 {Assured Health Technologies}{August 2025 - Jan 2026}
 \resumeItemListStart
 \item {Created 17 data migration scripts in Python that ran across the database to update various fields.}
@@ -180,7 +190,7 @@
 
 \vspace{-2mm}
 \resumeSubheading
-{Software Engineering Intern under LitmusChaos}{Remote}
+{ Software Engineering Intern under LitmusChaos}{Remote}
 {Cloud Native Computing Foundation Intern}{July 2024 - September 2024}
 \resumeItemListStart
 \item {Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30\% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.}
@@ -189,22 +199,11 @@
 \item {Optimized the login API of the Auth server by 98.84\% by bringing down the latency from 1.73s to 15.87ms.}
 \resumeItemListEnd
 
-\vspace{-2mm}
-
-\resumeSubheading
-{Code For GovTech Dedicated Mentoring Program under Dhiway}{Remote}
-{Software Engineering Intern}{June 2024 - August 2024}
-\resumeItemListStart
-\item {Designed Go SDK for CORD blockchain, enabling integration of blockchain features with 95\% test coverage.}
-\item {Wrote unit and fuzz tests to enhance test coverage of the new multi-modular Go SDK.}
-\item {Introduced DevOps practices, leading to better testing and faster delivery of Go SDK updates.}
-\item {Followed principles of Software Development Life Cycle, resulting in a 30\% decrease in code review time.}
-\resumeItemListEnd
 
 \vspace{-2.0mm}
 
 \resumeSubheading
-{Google Summer Of Code (Intern at Organic Maps)}{Remote}
+{ Google Summer Of Code (Intern at Organic Maps)}{Remote}
 {Software Developer Intern}{April 2023 - July 2023}
 \resumeItemListStart
 \item {Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9\% uptime on Cloudflare Workers.}
@@ -225,19 +224,42 @@
 \section{\textbf{Personal Projects}}
 
 \resumeSubHeadingListStart
+
 \resumeSubheading
-{Go-microservice} %Project Name
-{\href{https://github.com/kartikaysaxena/go-microservice}{Github}}
-{A simple HTTP API server with rate throttling over gRPC}
+{ LLM Inference Engine} %Project Name
+{\href{https://github.com/kartikaysaxena/llm-inference}{Github}}
+{A from-scratch LLM inference engine in PyTorch (KV cache, batching, paged memory)}
 {}
 
 \resumeItemListStart
-\item {Developed a web server with Redis-based IP address caching, reducing average response times by 15\%.}
-\item {Enhanced gRPC server performance by implementing rate-limiting, resulting in a 20\% decrease in request latency.}
-\item {Improved server performance by 25\% through efficient Redis-based user request caching.}
-\item {Incorporated system observability and maintainability through Prometheus and Grafana metrics exposure.}
+\item {Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.}
+\item {Achieved 2.22× decode speedup from KV caching at 1K tokens.}
+\item {Gained 118× throughput via batched inference on A100; cut memory 8.7× with a paged cache.}
+\item {Hit 11.1× serving throughput under 64 concurrent users; validated across 122 tests.}
 \resumeItemListEnd
 \vspace{-2mm}
+
+
+\resumeSubheading
+{ gogent} %Project Name
+{\href{https://github.com/kartikaysaxena/gogent}{Github}}
+{A Go framework for LLM agents with built-in OpenTelemetry observability}
+{}
+
+\resumeItemListStart
+\item {Designed a Go framework for building LLM agents, providing a structured runtime for tool use, provider integration, and agent orchestration.}
+\item {Built in OpenTelemetry observability to emit traces and metrics for agent runs, making multi-step agent pipelines debuggable and monitorable.}
+\item {Abstracted LLM provider access behind a common interface, supporting multiple providers and enabling drop-in swapping without changing agent code.}
+\item {Included a memory subsystem and examples suite to demonstrate reusable agent patterns out of the box.}
+\resumeItemListEnd
+\vspace{-2mm}
+
+
+
+
+
+
+
 \resumeSubHeadingListEnd
 
 \vspace{-5.5mm}
@@ -247,33 +269,33 @@
 %-----------Technical skills-----------------
 \section{\textbf{Technical Skills and Interests}}
 \begin{itemize}[leftmargin=0.05in, label={}]
-	\small{\item{
-		\textbf{Languages}{: JavaScript, TypeScript, Go, Python, Rust, C++, PHP, SQL}  \\
-		\textbf{Frameworks}{: ExpressJS, ReactJS, Socket.io, Web3JS, jQuery} \\
-		\textbf{Cloud/Databases}{: AWS, Ansible, Docker, Prometheus, Apache Kafka, Thanos, OpenTelemetry, Kubernetes, MongoDB, MySQL} \\
-		\textbf{Coursework}{: Udemy certifications of Web Development and Kubernetes, completed Google Cloud Engineer track for Google Cloud event, GDSC IIT Patna, MA101 and MA102 (Linear algebra and real analysis)} \\
-		
-	}}
+        \small{\item{
+                \textbf{Languages}{: JavaScript, TypeScript, Go, Python, Rust, C++, PHP, SQL}  \\
+                \textbf{Frameworks}{: ExpressJS, ReactJS, Socket.io, Web3JS, jQuery} \\
+                \textbf{Cloud/Databases}{: AWS, Ansible, Docker, Prometheus, Apache Kafka, Thanos, OpenTelemetry, Kubernetes, MongoDB, MySQL} \\
+                \textbf{Coursework}{: Udemy certifications of Web Development and Kubernetes, completed Google Cloud Engineer track for Google Cloud event, GDSC IIT Patna, MA101 and MA102 (Linear algebra and real analysis)} \\
+
+        }}
 \end{itemize}
 \vspace{-16pt}
 
 
 
-%-----------Positions of Responsibility-----------------
-\section{\textbf{Positions of Responsibility}}
-\vspace{-0.4mm}
-\resumeSubHeadingListStart
-\resumePOR{Dev Team Coordinator of Tech Fest, IIT Patna} % Position
-{Celesta, IIT Patna} %Club,Event
-{December 2022 - February 2023} %Tenure Period
-\resumePOR{WebNApp Team Coordinator of Sports Fest, IIT Patna} % Position
-{Infinito, IIT Patna} %Club,Event
-{December 2022 - January 2023} %Tenure Period
-\resumePOR{Member} % Position
-{GDSC, IIT Patna} %Club,Event
-{May 2022 - November 2022} %Tenure Period
-\resumeSubHeadingListEnd
-\vspace{-5mm}
+% %-----------Positions of Responsibility-----------------
+% \section{\textbf{Positions of Responsibility}}
+% \vspace{-0.4mm}
+% \resumeSubHeadingListStart
+% \resumePOR{Dev Team Coordinator of Tech Fest, IIT Patna} % Position
+% {Celesta, IIT Patna} %Club,Event
+% {December 2022 - February 2023} %Tenure Period
+% \resumePOR{WebNApp Team Coordinator of Sports Fest, IIT Patna} % Position
+% {Infinito, IIT Patna} %Club,Event
+% {December 2022 - January 2023} %Tenure Period
+% \resumePOR{Member} % Position
+% {GDSC, IIT Patna} %Club,Event
+% {May 2022 - November 2022} %Tenure Period
+% \resumeSubHeadingListEnd
+% \vspace{-5mm}
 
 %-----------EDUCATION-----------
 \section{\textbf{Education}}
@@ -287,23 +309,23 @@
 %
 
 
-%-----------Achievements-----------------
-\section{\textbf{Achievements}}
-\vspace{-0.4mm}
-\resumeSubHeadingListStart
+% %-----------Achievements-----------------
+% \section{\textbf{Achievements}}
+% \vspace{-0.4mm}
+% \resumeSubHeadingListStart
    
-\resumePOR{} % Award
-{Secured 6th rank in Inter IIT Tech Meet 12.0} % Event
-{} %Event Year
+% \resumePOR{} % Award
+% {Secured 6th rank in Inter IIT Tech Meet 12.0} % Event
+% {} %Event Year
     
-\resumePOR{} % Award
-{Solved 200 DSA problems on LeetCode and Codeforces} % Event
-{} %Event Year
-\resumePOR{} % Award
-{Top 1 percentile of almost 1 million applicants for IIT} % Event
-{} %Event Year
-\resumeSubHeadingListEnd
-\vspace{-5mm}
+% \resumePOR{} % Award
+% {Solved 200 DSA problems on LeetCode and Codeforces} % Event
+% {} %Event Year
+% \resumePOR{} % Award
+% {Top 1 percentile of almost 1 million applicants for IIT} % Event
+% {} %Event Year
+% \resumeSubHeadingListEnd
+% \vspace{-5mm}
 \setlength{\footskip}{4.08003pt}
 
 
