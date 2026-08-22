@@ -31,55 +31,82 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Detect changed TeX sources
+      - name: Detect TeX sources to compile
         id: changes
         shell: bash
         run: |
           set -euo pipefail
-          changed_tex=""
-          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            changed_tex=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -E '\.tex$' || true)
-          elif [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            changed_tex=$(find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' || true)
-          fi
-          {
-            echo 'files<<EOF'
-            echo "$changed_tex"
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
+          list=".changed-tex"
+          : > "$list"
 
-      - name: Compile changed TeX files
-        env:
-          CHANGED_TEX: ${{ steps.changes.outputs.files }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ -z "$CHANGED_TEX" ]; then
-            echo "::notice::No changed TeX files to compile."
-            exit 0
-          fi
+          collect_all() {
+            find . -name '*.tex' -not -path './.github/*' -not -path './.git/*' \
+              | sed 's|^\./||' | sort
+          }
 
-          REF="${{ github.sha }}"
-          while IFS= read -r f; do
-            [ -n "$f" ] || continue
-            echo "Compiling: $f"
-            raw_url="https://raw.githubusercontent.com/${{ github.repository }}/${REF}/${f}"
-            outdir="$(dirname "$f")"
-            outname="$(basename "${f%.tex}.pdf")"
-            curl -fsSL --max-time 180 \
-              "https://latexonline.cc/compile?url=${raw_url}&force=1" \
-              -o "${outdir}/${outname}" \
-            || { echo "::error::Failed to compile ${f} via HTTP API"; exit 1; }
-            if ! file "${outdir}/${outname}" | grep -qi 'PDF document'; then
-              echo "::error::${f} did not produce a PDF:"
-              cat "${outdir}/${outname}"
-              exit 1
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            collect_all > "$list"
+            echo "has_tex=true" >> "$GITHUB_OUTPUT"
+          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            before="${{ github.event.before }}"
+            sha="${{ github.sha }}"
+            if [ -z "$before" ] || [[ "$before" =~ ^0+$ ]]; then
+              collect_all > "$list"
+              echo "has_tex=true" >> "$GITHUB_OUTPUT"
+            else
+              git diff --name-only "$before" "$sha" | grep -E '\.tex$' >> "$list" || true
+              if git diff --name-only "$before" "$sha" | grep -E '\.tex$' >/dev/null; then
+                echo "has_tex=true" >> "$GITHUB_OUTPUT"
+              else
+                echo "has_tex=false" >> "$GITHUB_OUTPUT"
+              fi
+              # Recompile everything when the compiler itself changes.
+              if git diff --name-only "$before" "$sha" | grep -qxF '.github/workflows/compile.yml'; then
+                collect_all > "$list"
+              fi
             fi
-            echo "::notice::Generated ${outdir}/${outname}"
-          done <<< "$CHANGED_TEX"
+          else
+            echo "has_tex=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          grep -E '\.tex$' "$list" | sort -u > "${list}.tmp" || true
+          mv "${list}.tmp" "$list"
+
+          if [ -s "$list" ]; then
+            echo "needs_compile=true" >> "$GITHUB_OUTPUT"
+            echo "files<<EOF" >> "$GITHUB_OUTPUT"
+            cat "$list" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_compile=false" >> "$GITHUB_OUTPUT"
+            echo "files=" >> "$GITHUB_OUTPUT"
+            rm -f "$list"
+            echo "::notice::No TeX files to compile."
+          fi
+
+      # TeX Live 2025 + pdflatex, matching a current Overleaf compile (not latexonline.cc).
+      - name: Compile changed TeX files
+        if: steps.changes.outputs.needs_compile == 'true'
+        uses: xu-cheng/texlive-action@v3
+        with:
+          texlive_version: "2025"
+          run: |
+            while IFS= read -r f; do
+              [ -n "$f" ] || continue
+              echo "Compiling: $f"
+              latexmk -cd -pdf -file-line-error -halt-on-error -interaction=nonstopmode "$f"
+              latexmk -cd -c "$f"
+              pdf="${f%.tex}.pdf"
+              if [ ! -f "$pdf" ] || ! head -c 5 "$pdf" | grep -q '%PDF-'; then
+                echo "::error::${f} did not produce a PDF"
+                exit 1
+              fi
+              echo "::notice::Generated ${pdf}"
+            done < .changed-tex
+            rm -f .changed-tex
 
       - name: Generate candidate profile from changed resumes
-        if: steps.changes.outputs.files != ''
+        if: steps.changes.outputs.has_tex == 'true'
         env:
           PROFILE_LLM_API_KEY: ${{ secrets.PROFILE_LLM_API_KEY }}
           PROFILE_LLM_MODEL: ${{ vars.PROFILE_LLM_MODEL }}
