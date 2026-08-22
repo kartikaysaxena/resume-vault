@@ -16,9 +16,9 @@
   "experience": [
     {
       "highlights": [
-        "Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.",
-        "Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.",
-        "Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD)."
+        "Built an end-to-end model fine-tuning platform",
+        "Engineered ontology-aware knowledge graph workflows integrated with LLM agents",
+        "Developed a UI-driven agent generator"
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
@@ -26,10 +26,10 @@
     },
     {
       "highlights": [
-        "Created 17 data migration scripts in Python that ran across the database to update various fields.",
-        "Used AWS for deployment and automated production operations using CloudFormation, decreasing deployment time by 67%.",
-        "Optimized Django API to reduce time from 35.7s to 3.7s using indexes and removing extra mutational queries on prefetching.",
-        "Utilized Bun runtime to reduce compile and run time by 53%."
+        "Created 17 data migration scripts in Python",
+        "Used AWS for deployment and automated production operations using CloudFormation",
+        "Optimized Django API to reduce time from 35.7s to 3.7s",
+        "Utilized Bun runtime to reduce compile and run time by 53%"
       ],
       "organization": "Assured Health Technologies",
       "period": "August 2025 - Jan 2026",
@@ -37,10 +37,10 @@
     },
     {
       "highlights": [
-        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades.",
-        "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
-        "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
-        "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
+        "Developed an upgrade agent reducing manual intervention time by 30%",
+        "Engineered sequential upgrade pipeline",
+        "Automated MongoDB schema upgrades",
+        "Optimized login API latency from 1.73s to 15.87ms"
       ],
       "organization": "Cloud Native Computing Foundation",
       "period": "July 2024 - September 2024",
@@ -48,9 +48,9 @@
     },
     {
       "highlights": [
-        "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
-        "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
-        "Integrated the proxy seamlessly into both iOS and Android applications, improving data fetching speed by 30%."
+        "Built high-performance proxy serving 50K+ requests/day with 99.9% uptime",
+        "Architected proxy to convert Google Maps URIs",
+        "Integrated proxy into iOS and Android applications"
       ],
       "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
@@ -62,9 +62,9 @@
   "projects": [
     {
       "highlights": [
-        "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
-        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
-        "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
+        "Achieved 2.22\u00d7 decode speedup from KV caching",
+        "Gained 118\u00d7 throughput via batched inference",
+        "Cut memory 8.7\u00d7 with paged cache"
       ],
       "name": "LLM Inference Engine",
       "summary": "A from-scratch LLM inference engine in PyTorch (KV cache, batching, paged memory)",
@@ -72,9 +72,9 @@
     },
     {
       "highlights": [
-        "Designed a Go framework for building LLM agents with structured runtime for tool use and orchestration.",
-        "Built in OpenTelemetry observability for debuggable multi-step agent pipelines.",
-        "Abstracted LLM provider access behind a common interface supporting multiple providers."
+        "Designed Go framework for building LLM agents",
+        "Built in OpenTelemetry observability",
+        "Abstracted LLM provider access behind common interface"
       ],
       "name": "gogent",
       "summary": "A Go framework for LLM agents with built-in OpenTelemetry observability",
@@ -112,7 +112,7 @@
       "SQL"
     ]
   },
-  "source_revision": "06dd62fd1e0b0c58f52c252f9add8f7d8ecb416e",
+  "source_revision": "f0b6376624f0d4efdab611cb0c4c70e5a3d3fa36",
   "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience.",
   "version": 1
 }
