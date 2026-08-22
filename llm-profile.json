@@ -1,14 +1,10 @@
 {
-  "achievements": [
-    "Secured 6th rank in Inter IIT Tech Meet 12.0",
-    "Solved 200 DSA problems on LeetCode and Codeforces",
-    "Placed in the top 1 percentile of almost 1 million IIT applicants"
-  ],
+  "achievements": [],
   "contact": {
     "email": "kartikay_2101ce32@iitp.ac.in",
-    "github": "https://github.com/kartikaysaxena",
-    "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
-    "website": "https://ksaxena.tech"
+    "github": "kartikaysaxena",
+    "linkedin": "kartikay-saxena-33ba01223",
+    "website": "ksaxena.tech"
   },
   "education": [
     {
@@ -20,63 +16,103 @@
   "experience": [
     {
       "highlights": [
-        "Created 17 Python data migration scripts",
-        "Automated AWS production operations with CloudFormation, decreasing deployment time by 67%",
-        "Optimized a Django API from 35.7s to 3.7s",
-        "Used Bun to reduce compile and run time by 53%"
+        "Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.",
+        "Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.",
+        "Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD)."
+      ],
+      "organization": "Metafore",
+      "period": "January 2026 - Present",
+      "role": "AI Research Engineer"
+    },
+    {
+      "highlights": [
+        "Created 17 data migration scripts in Python that ran across the database to update various fields.",
+        "Used AWS for deployment and automated production operations using CloudFormation, decreasing deployment time by 67%.",
+        "Optimized Django API to reduce time from 35.7s to 3.7s using indexes and removing extra mutational queries on prefetching.",
+        "Utilized Bun runtime to reduce compile and run time by 53%."
       ],
       "organization": "Assured Health Technologies",
-      "period": "August 2025 - January 2026",
+      "period": "August 2025 - Jan 2026",
       "role": "Software Engineering Consultant"
     },
     {
       "highlights": [
-        "Developed an upgrade agent for LitmusChaos",
-        "Automated MongoDB schema upgrades",
-        "Reduced auth-server login latency from 1.73s to 15.87ms"
+        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades.",
+        "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
+        "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
+        "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
       ],
-      "organization": "Cloud Native Computing Foundation / LitmusChaos",
+      "organization": "Cloud Native Computing Foundation",
       "period": "July 2024 - September 2024",
-      "role": "Software Engineering Intern"
+      "role": "Software Engineering Intern under LitmusChaos"
     },
     {
       "highlights": [
-        "Designed a Go SDK for the CORD blockchain with 95% test coverage",
-        "Added unit and fuzz tests and introduced DevOps practices"
+        "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
+        "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
+        "Integrated the proxy seamlessly into both iOS and Android applications, improving data fetching speed by 30%."
       ],
-      "organization": "Code for GovTech / Dhiway",
-      "period": "June 2024 - August 2024",
-      "role": "Software Engineering Intern"
-    },
-    {
-      "highlights": [
-        "Built a TypeScript and Node.js proxy on Cloudflare Workers serving 50K+ requests per day at 99.9% uptime",
-        "Converted Google Maps URIs for Organic Maps and reduced load time by 60%"
-      ],
-      "organization": "Google Summer of Code / Organic Maps",
+      "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
-      "role": "Software Developer Intern"
+      "role": "Google Summer Of Code Intern"
     }
   ],
-  "headline": "Software Engineer focused on backend, cloud-native systems, APIs, and developer tooling",
-  "name": "Kartikay Saxena",
+  "headline": "Software Engineer",
+  "name": "Kartikay",
   "projects": [
     {
       "highlights": [
-        "Implemented Redis-based caching and IP rate throttling over gRPC",
-        "Exposed Prometheus and Grafana metrics"
+        "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
+        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
+        "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
       ],
-      "name": "Go-microservice",
-      "summary": "HTTP API server with Redis caching, gRPC rate limiting, and observability",
-      "url": "https://github.com/kartikaysaxena/go-microservice"
+      "name": "LLM Inference Engine",
+      "summary": "A from-scratch LLM inference engine in PyTorch (KV cache, batching, paged memory)",
+      "url": "https://github.com/kartikaysaxena/llm-inference"
+    },
+    {
+      "highlights": [
+        "Designed a Go framework for building LLM agents with structured runtime for tool use and orchestration.",
+        "Built in OpenTelemetry observability for debuggable multi-step agent pipelines.",
+        "Abstracted LLM provider access behind a common interface supporting multiple providers."
+      ],
+      "name": "gogent",
+      "summary": "A Go framework for LLM agents with built-in OpenTelemetry observability",
+      "url": "https://github.com/kartikaysaxena/gogent"
     }
   ],
   "skills": {
-    "frameworks": ["ExpressJS", "ReactJS", "Socket.io", "Web3JS", "jQuery"],
-    "infrastructure": ["AWS", "Ansible", "Docker", "Prometheus", "Apache Kafka", "Thanos", "OpenTelemetry", "Kubernetes", "MongoDB", "MySQL"],
-    "languages": ["JavaScript", "TypeScript", "Go", "Python", "Rust", "C++", "PHP", "SQL"]
+    "frameworks": [
+      "ExpressJS",
+      "ReactJS",
+      "Socket.io",
+      "Web3JS",
+      "jQuery"
+    ],
+    "infrastructure": [
+      "AWS",
+      "Ansible",
+      "Docker",
+      "Prometheus",
+      "Apache Kafka",
+      "Thanos",
+      "OpenTelemetry",
+      "Kubernetes",
+      "MongoDB",
+      "MySQL"
+    ],
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Go",
+      "Python",
+      "Rust",
+      "C++",
+      "PHP",
+      "SQL"
+    ]
   },
-  "source_revision": "3e69b66e1579cc80710ee5943a2895e4a9aa5350",
-  "summary": "Software engineer with experience in backend performance, cloud infrastructure, developer tooling, distributed systems, and production automation.",
+  "source_revision": "06dd62fd1e0b0c58f52c252f9add8f7d8ecb416e",
+  "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience.",
   "version": 1
 }
