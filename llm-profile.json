@@ -2,9 +2,9 @@
   "achievements": [],
   "contact": {
     "email": "kartikay_2101ce32@iitp.ac.in",
-    "github": "https://github.com/kartikaysaxena",
-    "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
-    "website": "https://ksaxena.tech"
+    "github": "kartikaysaxena",
+    "linkedin": "kartikay-saxena-33ba01223",
+    "website": "ksaxena.tech"
   },
   "education": [
     {
@@ -22,7 +22,7 @@
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
-      "role": "AI Research Engineer"
+      "role": "Software Engineer"
     },
     {
       "highlights": [
@@ -37,22 +37,22 @@
     },
     {
       "highlights": [
-        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades.",
+        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.",
         "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
         "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
         "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
       ],
-      "organization": "Cloud Native Computing Foundation",
+      "organization": "Cloud Native Computing Foundation Intern",
       "period": "July 2024 - September 2024",
-      "role": "Software Engineering Intern (LitmusChaos)"
+      "role": "Software Engineering Intern under LitmusChaos"
     },
     {
       "highlights": [
         "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
         "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
-        "Integrated the proxy seamlessly into both iOS and Android applications, improving data fetching speed by 30%."
+        "Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30% across mobile platforms."
       ],
-      "organization": "Organic Maps (Google Summer of Code)",
+      "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
       "role": "Software Developer Intern"
     }
@@ -62,6 +62,7 @@
   "projects": [
     {
       "highlights": [
+        "Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.",
         "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
         "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
         "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
@@ -72,9 +73,10 @@
     },
     {
       "highlights": [
-        "Designed a Go framework for building LLM agents with structured runtime for tool use and orchestration.",
-        "Built in OpenTelemetry observability for debuggable multi-step agent pipelines.",
-        "Abstracted LLM provider access behind a common interface supporting multiple providers."
+        "Designed a Go framework for building LLM agents, providing a structured runtime for tool use, provider integration, and agent orchestration.",
+        "Built in OpenTelemetry observability to emit traces and metrics for agent runs, making multi-step agent pipelines debuggable and monitorable.",
+        "Abstracted LLM provider access behind a common interface, supporting multiple providers and enabling drop-in swapping without changing agent code.",
+        "Included a memory subsystem and examples suite to demonstrate reusable agent patterns out of the box."
       ],
       "name": "gogent",
       "summary": "A Go framework for LLM agents with built-in OpenTelemetry observability",
@@ -113,7 +115,7 @@
       "SQL"
     ]
   },
-  "source_revision": "85fd726aaeb0fbb684b75059af5c8dcfb96246d6",
+  "source_revision": "0a8d7d82dbcf9705b98843e23ef612069c4002dd",
   "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience.",
   "version": 1
 }
