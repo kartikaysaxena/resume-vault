@@ -6,8 +6,9 @@
   "pdf": "software-engineer.pdf",
   "role_families": ["backend", "full_stack", "platform", "cloud_native"],
   "skills": [
-    "Go", "Python", "TypeScript", "SQL", "AWS", "Docker", "Kubernetes",
-    "MongoDB", "Redis", "gRPC", "Prometheus", "OpenTelemetry"
+    "Go", "Python", "TypeScript", "JavaScript", "Java", "SQL", "Spring Boot",
+    "Django", "React", "Node.js", "PyTorch", "PostgreSQL", "AWS", "CloudFormation",
+    "Docker", "Kubernetes", "MongoDB", "Redis", "gRPC", "Prometheus", "OpenTelemetry"
   ],
   "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience."
 }

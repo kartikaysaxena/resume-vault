@@ -1,0 +1,14 @@
+{
+  "id": "research_engineer",
+  "display_name": "AI Research Engineer",
+  "status": "active",
+  "source": "research-engineer.tex",
+  "pdf": "research-engineer.pdf",
+  "role_families": ["research", "ai_research", "research_engineering", "machine_learning"],
+  "skills": [
+    "Python", "PyTorch", "Triton", "LLM inference", "model training",
+    "Kimi Delta Attention", "Gated MLA", "Mixture of Experts", "Muon",
+    "KV cache", "continuous batching", "CUDA"
+  ],
+  "summary": "AI research engineer focused on reproducing model architectures, training compact language models, and implementing efficient LLM inference systems."
+}

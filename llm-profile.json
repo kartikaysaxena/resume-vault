@@ -2,8 +2,8 @@
   "achievements": [],
   "contact": {
     "email": "kartikay_2101ce32@iitp.ac.in",
-    "github": "kartikaysaxena",
-    "linkedin": "kartikay-saxena-33ba01223",
+    "github": "https://github.com/kartikaysaxena",
+    "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
     "website": "ksaxena.tech"
   },
   "education": [
@@ -22,7 +22,7 @@
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
-      "role": "Software Engineer"
+      "role": "Machine Learning Engineer"
     },
     {
       "highlights": [
@@ -37,12 +37,12 @@
     },
     {
       "highlights": [
-        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.",
+        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades.",
         "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
         "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
         "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
       ],
-      "organization": "Cloud Native Computing Foundation Intern",
+      "organization": "Cloud Native Computing Foundation",
       "period": "July 2024 - September 2024",
       "role": "Software Engineering Intern under LitmusChaos"
     },
@@ -50,21 +50,21 @@
       "highlights": [
         "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
         "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
-        "Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30% across mobile platforms."
+        "Integrated the proxy seamlessly into both iOS and Android applications, improving data fetching speed by 30%."
       ],
       "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
-      "role": "Software Developer Intern"
+      "role": "Software Developer Intern (Google Summer of Code)"
     }
   ],
-  "headline": "Software Engineer",
+  "headline": "Machine Learning Engineer",
   "name": "Kartikay",
   "projects": [
     {
       "highlights": [
-        "Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.",
+        "Built with KV caching, continuous batching, and paged memory.",
         "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
-        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
+        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with paged cache.",
         "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
       ],
       "name": "LLM Inference Engine",
@@ -73,18 +73,19 @@
     },
     {
       "highlights": [
-        "Designed a Go framework for building LLM agents, providing a structured runtime for tool use, provider integration, and agent orchestration.",
-        "Built in OpenTelemetry observability to emit traces and metrics for agent runs, making multi-step agent pipelines debuggable and monitorable.",
-        "Abstracted LLM provider access behind a common interface, supporting multiple providers and enabling drop-in swapping without changing agent code.",
-        "Included a memory subsystem and examples suite to demonstrate reusable agent patterns out of the box."
+        "Reproduced and trained a 49M-parameter model on TinyStories using a single RTX 4060 Laptop GPU.",
+        "Studied K3's core architecture: Kimi Delta Attention (KDA), Gated MLA, Stable LatentMoE, and Attention Residuals.",
+        "Worked with Muon and Per-Head Muon optimizers, custom KDA/MLA Triton kernels, and cached autoregressive decoding.",
+        "Got a compact reproduction of a 2.8T-parameter frontier model running locally, verified with 6 passing tests."
       ],
-      "name": "gogent",
-      "summary": "A Go framework for LLM agents with built-in OpenTelemetry observability",
-      "url": "https://github.com/kartikaysaxena/gogent"
+      "name": "Kimi-K3-Impl",
+      "summary": "Reproduction of a 49M-parameter Kimi K3-inspired language model, trained on a single 8GB GPU",
+      "url": "https://github.com/kartikaysaxena/kimi-k3-impl"
     }
   ],
   "skills": {
     "frameworks": [
+      "PyTorch",
       "ExpressJS",
       "ReactJS",
       "Socket.io",
@@ -93,21 +94,19 @@
     ],
     "infrastructure": [
       "AWS",
-      "Ansible",
       "Docker",
+      "Kubernetes",
       "Prometheus",
       "Apache Kafka",
-      "Thanos",
       "OpenTelemetry",
-      "Kubernetes",
       "MongoDB",
       "MySQL"
     ],
     "languages": [
+      "Python",
       "JavaScript",
       "TypeScript",
       "Go",
-      "Python",
       "Rust",
       "Java",
       "C++",
@@ -115,7 +114,7 @@
       "SQL"
     ]
   },
-  "source_revision": "0a8d7d82dbcf9705b98843e23ef612069c4002dd",
-  "summary": "Software engineer with backend, cloud-native, developer tooling, API performance, and production infrastructure experience.",
+  "source_revision": "57b4b2d3c43b83dfc284cedf856f116cbd71e9a9",
+  "summary": "Machine learning engineer with hands-on model training, PyTorch architecture work, and production-inspired LLM serving and optimization experience.",
   "version": 1
 }
