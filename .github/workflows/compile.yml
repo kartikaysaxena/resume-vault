@@ -183,6 +183,7 @@ jobs:
 
   deploy:
     needs: compile
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
