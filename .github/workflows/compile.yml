@@ -105,6 +105,40 @@ jobs:
             done < .changed-tex
             rm -f .changed-tex
 
+      - name: Verify every active resume is exactly one page
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v pdfinfo >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
+          python - <<'PY' > .active-pdfs
+          import json
+          from pathlib import Path
+
+          for metadata_path in sorted(Path('.').glob('*/resume.json')):
+              metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
+              if metadata.get('status', 'active') != 'active':
+                  continue
+              pdf = metadata_path.parent / metadata['pdf']
+              print(pdf.as_posix())
+          PY
+          while IFS= read -r pdf; do
+            [ -n "$pdf" ] || continue
+            if [ ! -f "$pdf" ]; then
+              echo "::error::Active resume PDF is missing: ${pdf}"
+              exit 1
+            fi
+            pages="$(pdfinfo "$pdf" | awk '/^Pages:/ { print $2 }')"
+            if [ "$pages" != "1" ]; then
+              echo "::error::${pdf} has ${pages:-unknown} pages; every active resume must be exactly one page"
+              exit 1
+            fi
+            echo "::notice::Verified one-page resume: ${pdf}"
+          done < .active-pdfs
+          rm -f .active-pdfs
+
       - name: Generate candidate profile from changed resumes
         if: steps.changes.outputs.has_tex == 'true'
         env:

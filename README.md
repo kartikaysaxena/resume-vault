@@ -10,8 +10,8 @@ resume-vault/
 │   ├── software-engineer.tex
 │   ├── software-engineer.pdf
 │   └── resume.json
-├── research_engineer/     ← placeholder (no resume yet)
-├── ml_engineer/           ← placeholder (no resume yet)
+├── research_engineer/     ← AI Research Engineer variant (live)
+├── ml_engineer/           ← Machine Learning Engineer variant (live)
 ├── llm-profile.json      ← generated compact candidate context
 └── .github/workflows/     ← auto-compile pipeline
 ```
@@ -24,6 +24,7 @@ A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sy
 
 - **Trigger:** any push that changes a `.tex` file (in any role folder), or a manual `workflow_dispatch` run.
 - **Action:** compiles every changed `.tex` with **TeX Live 2025 + pdflatex** (`latexmk`) inside GitHub Actions — the same generation Overleaf uses, not latexonline.cc.
+- **Page gate:** validates every active PDF and fails the build unless each resume is exactly one page.
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
 - **Profile:** on every TeX change, the workflow asks an OpenAI-compatible model for one factual JSON profile and commits it at the repository root.
 - **Publish:** active PDFs and a validated `manifest.json` catalog are deployed to **GitHub Pages**. TeX remains available from its pinned GitHub source revision rather than being copied into Pages.
@@ -57,6 +58,7 @@ Set the repository Actions secret `PROFILE_LLM_API_KEY`. Optional Actions variab
 ## 🧑‍💻 For agents (and humans)
 
 - **Always edit `.tex` files**, never the committed `.pdf`.
+- Keep `resume.json` skills factual: Job Mailer uses this list as the allow-list for deterministic ATS keyword additions.
 - The workflow keeps PDFs in sync — you usually don't need to compile locally.
 - If a resume uses custom classes/packages, ensure they're referenced correctly or committed alongside (this template is self-contained and uses standard TeX packages: `tcolorbox`, `fontawesome5`, `hyperref`, `tabularx`, etc.).
 - Role folders without a resume are placeholders — add the `.tex` when ready.

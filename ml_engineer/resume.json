@@ -1,0 +1,14 @@
+{
+  "id": "ml_engineer",
+  "display_name": "Machine Learning Engineer",
+  "status": "active",
+  "source": "ml-engineer.tex",
+  "pdf": "ml-engineer.pdf",
+  "role_families": ["machine_learning", "ml_engineering", "ai_engineering", "ml_systems"],
+  "skills": [
+    "Python", "PyTorch", "Triton", "LLM inference", "model training",
+    "KV cache", "continuous batching", "paged memory", "CUDA",
+    "Docker", "Kubernetes", "AWS"
+  ],
+  "summary": "Machine learning engineer with hands-on model training, PyTorch architecture work, and production-inspired LLM serving and optimization experience."
+}
