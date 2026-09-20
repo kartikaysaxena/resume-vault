@@ -24,16 +24,16 @@
 \resumeItemListStart
 % bullet-id: agent-runtime
 % bullet-skills: Go, AI Agents, Graph Runtime, Guardrails, Evaluation
-\item {Built a Go-native agent framework with ReAct and plan-and-execute loops, typed tools, graph routing, checkpoints, interrupt/resume, guardrails, and evaluation primitives.}
+\item {Built a Go agent framework with ReAct and plan-and-execute loops, typed tools, graph routing, checkpoints, guardrails, and evaluations.}
 % bullet-id: provider-protocols
 % bullet-skills: Go, Provider Abstractions, Anthropic, OpenAI, Google, AWS Bedrock, MCP, A2A
-\item {Designed modular provider integrations for Anthropic, OpenAI, Google, and Bedrock alongside MCP and A2A client/server support, keeping orchestration code provider-independent.}
+\item {Integrated Anthropic, OpenAI, Google, Bedrock, MCP, and A2A behind provider-independent interfaces.}
 % bullet-id: observability-stack
 % bullet-skills: OpenTelemetry, SQLite, SSE, CLI, Observability
-\item {Implemented OpenTelemetry-native tracing, an embedded SQLite span store, a live SSE dashboard, and CLI workflows for inspecting and replaying agent runs from one binary.}
+\item {Added OpenTelemetry tracing, a SQLite span store, an SSE dashboard, and CLI run replay.}
 % bullet-id: runtime-benchmarks
 % bullet-skills: Go Benchmarking, Performance, Memory Optimization, OpenTelemetry
-\item {Benchmarked the graph runtime at roughly 240 ns per node transition with zero happy-path allocations and measured about 8.7 microseconds of tracing overhead per provider call.}
+\item {Benchmarked 240 ns node transitions with zero happy-path allocations and 8.7 microseconds of tracing overhead per provider call.}
 \resumeItemListEnd
 \vspace{-2mm}
 
