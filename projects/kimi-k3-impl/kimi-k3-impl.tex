@@ -24,16 +24,16 @@
 \resumeItemListStart
 % bullet-id: architecture-reproduction
 % bullet-skills: PyTorch, Kimi Delta Attention, Gated MLA, Mixture of Experts
-\item {Reproduced a 49,019,770-parameter Kimi K3-inspired language model with 9 Kimi Delta Attention layers, 4 Gated MLA layers, Attention Residuals, and Stable LatentMoE.}
+\item {Reproduced a 49M-parameter Kimi K3-inspired model with 9 KDA layers, 4 Gated MLA layers, Attention Residuals, and Stable LatentMoE.}
 % bullet-id: single-gpu-training
 % bullet-skills: Model Training, PyTorch, BF16, TinyStories, CUDA
-\item {Trained the model from scratch on TinyStories using BF16 on a single RTX 4060 Laptop GPU; selected the step-9,750 checkpoint at 1.6277 validation loss.}
+\item {Trained on TinyStories in BF16 on one RTX 4060 Laptop GPU; selected step 9,750 at 1.6277 validation loss.}
 % bullet-id: kernels-and-optimization
 % bullet-skills: Triton, CUDA, Autoregressive Decoding, Muon, Performance Optimization
-\item {Integrated chunkwise Triton KDA kernels, cached KDA/MLA autoregressive decoding, Muon and Per-Head Muon optimization, and an FP32 recurrent CPU fallback.}
+\item {Integrated Triton KDA kernels, cached KDA/MLA decoding, Muon optimizers, and an FP32 CPU fallback.}
 % bullet-id: training-system
 % bullet-skills: Experiment Tracking, Checkpointing, Testing, Matplotlib
-\item {Built atomic checkpointing and a live training dashboard for loss, throughput, VRAM, and samples; verified architecture, causality, decoding, and artifacts with 6 tests.}
+\item {Added atomic checkpoints, live training metrics, and 6 tests for architecture, causality, decoding, and artifacts.}
 \resumeItemListEnd
 \vspace{-2mm}
 
