@@ -1,0 +1,35 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{project-blob}[2026/09/20 Reusable resume project block]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{xcolor}
+\RequirePackage{enumitem}
+\RequirePackage{hyperref}
+
+\definecolor{ProjectAccent}{HTML}{1F4E79}
+\definecolor{ProjectMuted}{HTML}{4B5563}
+\hypersetup{colorlinks=true,urlcolor=ProjectAccent}
+
+% #1 is a stable bullet ID, #2 is a comma-separated JD matching tag list,
+% and #3 is the rendered resume bullet. The first two arguments are kept in
+% source so a resume builder can select individual bullets deterministically.
+\newcommand{\ProjectBullet}[3]{\item #3}
+
+% title, repository URL, role families, skills, summary, bullet commands
+\newcommand{\ProjectBlob}[6]{%
+  \noindent\begin{minipage}{\linewidth}
+    \raggedright
+    {\Large\bfseries\color{ProjectAccent} #1}\hfill
+    {\small\href{#2}{Repository}}\par
+    \vspace{2pt}
+    {\small\color{ProjectMuted}\textbf{Role fit:} #3}\par
+    {\small\color{ProjectMuted}\textbf{Skills:} #4}\par
+    \vspace{5pt}
+    #5\par
+    \vspace{3pt}
+    \begin{itemize}[leftmargin=1.35em,itemsep=2pt,topsep=2pt,parsep=0pt]
+      #6
+    \end{itemize}
+  \end{minipage}%
+}

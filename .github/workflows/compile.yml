@@ -5,6 +5,7 @@ on:
     paths:
       - "**/*.tex"
       - "**/resume.json"
+      - "projects/*.sty"
       - "llm-profile.json"
       - "scripts/generate_manifest.py"
       - "scripts/generate_profile.py"
@@ -55,13 +56,13 @@ jobs:
               echo "has_tex=true" >> "$GITHUB_OUTPUT"
             else
               git diff --name-only "$before" "$sha" | grep -E '\.tex$' >> "$list" || true
-              if git diff --name-only "$before" "$sha" | grep -E '\.tex$' >/dev/null; then
+              if git diff --name-only "$before" "$sha" | grep -E '\.tex$' | grep -Ev '^projects/' >/dev/null; then
                 echo "has_tex=true" >> "$GITHUB_OUTPUT"
               else
                 echo "has_tex=false" >> "$GITHUB_OUTPUT"
               fi
-              # Recompile everything when the compiler itself changes.
-              if git diff --name-only "$before" "$sha" | grep -qxF '.github/workflows/compile.yml'; then
+              # Recompile everything when the compiler or shared project style changes.
+              if git diff --name-only "$before" "$sha" | grep -Eq '^(\.github/workflows/compile\.yml|projects/project-blob\.sty)$'; then
                 collect_all > "$list"
               fi
             fi

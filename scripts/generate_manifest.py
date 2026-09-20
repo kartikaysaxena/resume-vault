@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 from pathlib import Path
 from typing import Any
@@ -54,6 +55,117 @@ def load_resume(metadata_path: Path, root: Path) -> dict[str, Any]:
     metadata["_source_path"] = source
     metadata["_pdf_path"] = pdf
     return metadata
+
+
+def load_project(project_path: Path) -> dict[str, Any]:
+    source = project_path.read_text(encoding="utf-8")
+    metadata = {
+        match.group(1): match.group(2).strip()
+        for match in re.finditer(r"^%\s*([a-z-]+):\s*(.+?)\s*$", source, re.MULTILINE)
+    }
+    required = {
+        "project-id", "project-name", "repository-url", "source-revision",
+        "role-families", "skills",
+    }
+    missing = sorted(required - metadata.keys())
+    if missing:
+        raise ValueError(f"{project_path}: missing metadata comments: {', '.join(missing)}")
+
+    project_id = metadata["project-id"]
+    if project_id != project_path.stem or project_id != project_path.parent.name:
+        raise ValueError(f"{project_path}: project id must match its folder and filename")
+    if not metadata["repository-url"].startswith("https://github.com/"):
+        raise ValueError(f"{project_path}: repository-url must be a GitHub HTTPS URL")
+    if not re.fullmatch(r"[0-9a-f]{40}", metadata["source-revision"]):
+        raise ValueError(f"{project_path}: source-revision must be a full Git commit SHA")
+
+    bullets = re.findall(r"\\ProjectBullet\{([^{}]+)\}\{([^{}]+)\}", source)
+    if not 3 <= len(bullets) <= 4:
+        raise ValueError(f"{project_path}: expected 3 or 4 reusable ProjectBullet commands")
+    bullet_ids = [bullet_id.strip() for bullet_id, _ in bullets]
+    if len(set(bullet_ids)) != len(bullet_ids) or not all(bullet_ids):
+        raise ValueError(f"{project_path}: bullet IDs must be non-empty and unique")
+    if not all(tags.strip() for _, tags in bullets):
+        raise ValueError(f"{project_path}: every bullet requires JD matching tags")
+
+    pdf_path = project_path.with_suffix(".pdf")
+    if not pdf_path.is_file():
+        raise ValueError(f"{project_path}: missing compiled preview {pdf_path.name}")
+
+    return {
+        "id": project_id,
+        "name": metadata["project-name"],
+        "repository_url": metadata["repository-url"],
+        "source_revision": metadata["source-revision"],
+        "role_families": [value.strip() for value in metadata["role-families"].split(",")],
+        "skills": [value.strip() for value in metadata["skills"].split(",")],
+        "bullet_count": len(bullets),
+        "_tex_path": project_path,
+        "_pdf_path": pdf_path,
+    }
+
+
+def build_project_catalog(
+    root: Path,
+    site: Path,
+    revision: str,
+    pages_base_url: str,
+) -> Path:
+    projects = []
+    project_ids: set[str] = set()
+    destination_dir = site / "projects"
+    destination_dir.mkdir(parents=True, exist_ok=True)
+
+    style = root / "projects" / "project-blob.sty"
+    if not style.is_file():
+        raise ValueError("missing projects/project-blob.sty")
+    shutil.copy2(style, destination_dir / style.name)
+
+    for project_path in sorted((root / "projects").glob("*/*.tex")):
+        project = load_project(project_path)
+        project_id = project["id"]
+        if project_id in project_ids:
+            raise ValueError(f"duplicate project id: {project_id}")
+        project_ids.add(project_id)
+
+        tex: Path = project.pop("_tex_path")
+        pdf: Path = project.pop("_pdf_path")
+        relative_tex = tex.relative_to(root).as_posix()
+        relative_pdf = pdf.relative_to(root).as_posix()
+        tex_destination = site / relative_tex
+        pdf_destination = site / relative_pdf
+        tex_destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(tex, tex_destination)
+        shutil.copy2(pdf, pdf_destination)
+        project.update(
+            {
+                "tex_url": f"{pages_base_url.rstrip('/')}/{quote(relative_tex, safe='/')}",
+                "pdf_url": f"{pages_base_url.rstrip('/')}/{quote(relative_pdf, safe='/')}",
+                "tex_sha256": sha256(tex),
+                "pdf_sha256": sha256(pdf),
+            }
+        )
+        projects.append(project)
+
+    if not projects:
+        raise ValueError("no reusable project blocks found")
+
+    catalog_path = destination_dir / "index.json"
+    catalog_path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "vault_revision": revision,
+                "style_url": f"{pages_base_url.rstrip('/')}/projects/project-blob.sty",
+                "style_sha256": sha256(style),
+                "projects": projects,
+            },
+            indent=2,
+            sort_keys=True,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    return catalog_path
 
 
 def build_manifest(
@@ -108,11 +220,17 @@ def build_manifest(
     if not resumes:
         raise ValueError("no active resumes found")
 
+    project_catalog_path = build_project_catalog(
+        root, site, revision, pages_base_url,
+    )
+
     manifest = {
         "version": 1,
         "source_revision": revision,
         "profile_url": f"{pages_base_url.rstrip('/')}/llm-profile.json",
         "profile_sha256": sha256(profile_path),
+        "project_catalog_url": f"{pages_base_url.rstrip('/')}/projects/index.json",
+        "project_catalog_sha256": sha256(project_catalog_path),
         "resumes": resumes,
     }
     site.mkdir(parents=True, exist_ok=True)

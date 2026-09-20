@@ -28,6 +28,24 @@ class ManifestTests(unittest.TestCase):
                 }),
                 encoding="utf-8",
             )
+            projects = root / "projects"
+            projects.mkdir()
+            (projects / "project-blob.sty").write_text("style", encoding="utf-8")
+            project = projects / "agent-runtime"
+            project.mkdir()
+            (project / "agent-runtime.tex").write_text(
+                "% project-id: agent-runtime\n"
+                "% project-name: Agent Runtime\n"
+                "% repository-url: https://github.com/owner/agent-runtime\n"
+                f"% source-revision: {'1' * 40}\n"
+                "% role-families: backend, ai engineering\n"
+                "% skills: Go, OpenTelemetry\n"
+                "\\ProjectBullet{runtime}{Go}{Built the runtime.}\n"
+                "\\ProjectBullet{tracing}{OpenTelemetry}{Added tracing.}\n"
+                "\\ProjectBullet{tests}{Testing}{Covered the runtime.}\n",
+                encoding="utf-8",
+            )
+            (project / "agent-runtime.pdf").write_bytes(b"%PDF-project")
 
             site = root / "_site"
             manifest = build_manifest(
@@ -41,6 +59,18 @@ class ManifestTests(unittest.TestCase):
             self.assertTrue((site / "manifest.json").is_file())
             self.assertTrue((site / "llm-profile.json").is_file())
             self.assertEqual(manifest["profile_url"], "https://owner.github.io/vault/llm-profile.json")
+            self.assertEqual(
+                manifest["project_catalog_url"],
+                "https://owner.github.io/vault/projects/index.json",
+            )
+            self.assertTrue((site / "projects/agent-runtime/agent-runtime.tex").is_file())
+            self.assertTrue((site / "projects/agent-runtime/agent-runtime.pdf").is_file())
+            catalog = json.loads((site / "projects/index.json").read_text(encoding="utf-8"))
+            self.assertEqual(catalog["vault_revision"], "abc123")
+            self.assertEqual(catalog["projects"][0]["id"], "agent-runtime")
+            self.assertEqual(catalog["projects"][0]["bullet_count"], 3)
+            self.assertIn("agent-runtime.tex", catalog["projects"][0]["tex_url"])
+            self.assertIn("agent-runtime.pdf", catalog["projects"][0]["pdf_url"])
 
 
 if __name__ == "__main__":

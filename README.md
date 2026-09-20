@@ -12,11 +12,34 @@ resume-vault/
 │   └── resume.json
 ├── research_engineer/     ← AI Research Engineer variant (live)
 ├── ml_engineer/           ← Machine Learning Engineer variant (live)
-├── llm-profile.json      ← generated compact candidate context
+├── projects/              ← reusable, evidence-backed project blocks
+├── llm-profile.json       ← generated compact candidate context
 └── .github/workflows/     ← auto-compile pipeline
 ```
 
 **Convention:** one folder per role. `resume.json` declares its source, PDF, role families, skills, and short summary. Job Mailer uses that small record to select a variant without sending every complete résumé to an LLM.
+
+## 🧱 Reusable project blocks
+
+`projects/<project-id>/<project-id>.tex` contains one reusable LaTeX block per portfolio project. Every source file carries its repository evidence commit, role families, and searchable skills in metadata comments, followed by four `\ProjectBullet{id}{JD tags}{text}` commands. Job Mailer can rank projects and individual bullets against a job description, remove weaker bullets, and input the resulting block into a resume.
+
+Each block is dual-purpose: it compiles by itself into a cropped PDF preview, or renders as a fragment when `\ResumeProjectMode` is defined by a parent resume. The shared rendering contract lives in `projects/project-blob.sty`.
+
+```tex
+\usepackage{projects/project-blob}
+\newcommand{\ResumeProjectMode}{}
+\input{projects/gogent/gogent.tex}
+```
+
+The Pages build validates every source, publishes its compiled preview beside it, and generates a discovery catalog:
+
+```text
+https://kartikaysaxena.github.io/resume-vault/projects/index.json
+https://kartikaysaxena.github.io/resume-vault/projects/<project-id>/<project-id>.tex
+https://kartikaysaxena.github.io/resume-vault/projects/<project-id>/<project-id>.pdf
+```
+
+`manifest.json` exposes `project_catalog_url` and its SHA-256 digest, so consumers can discover and verify the catalog without hard-coding its path.
 
 ## 🔄 Auto-recompile workflow
 
@@ -28,6 +51,7 @@ A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sy
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
 - **Profile:** on every TeX change, the workflow asks an OpenAI-compatible model for one factual JSON profile and commits it at the repository root.
 - **Publish:** active PDFs and a validated `manifest.json` catalog are deployed to **GitHub Pages**. TeX remains available from its pinned GitHub source revision rather than being copied into Pages.
+- **Project catalog:** reusable project blocks are validated and deployed alongside the resume catalog for deterministic JD matching.
 - **Result:** the PDF in a folder is always up-to-date with its `.tex`, and always reachable at the same shareable link.
 
 ### Static PDF URLs (GitHub Pages)
@@ -42,6 +66,8 @@ Example: `https://kartikaysaxena.github.io/resume-vault/software_engineer/softwa
 Catalog: `https://kartikaysaxena.github.io/resume-vault/manifest.json`
 
 Candidate profile: `https://kartikaysaxena.github.io/resume-vault/llm-profile.json`
+
+Project catalog: `https://kartikaysaxena.github.io/resume-vault/projects/index.json`
 
 Set the repository Actions secret `PROFILE_LLM_API_KEY`. Optional Actions variables `PROFILE_LLM_MODEL` and `PROFILE_LLM_BASE_URL` select another OpenAI-compatible model or endpoint; the defaults are `deepseek/deepseek-chat` through OpenRouter. Profile generation consumes tokens only when a TeX source changes (or the workflow is run manually). Job Mailer fetches the published result instead of making a separate profile-generation call.
 

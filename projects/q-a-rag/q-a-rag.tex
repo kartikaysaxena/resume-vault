@@ -1,0 +1,33 @@
+% project-id: q-a-rag
+% project-name: Document Question Answering System
+% repository-url: https://github.com/kartikaysaxena/q-a-rag
+% source-revision: e94ddfa97d5a0d6841e4a02b84faf10c5347d1fd
+% role-families: machine learning, ai engineering, rag, python
+% skills: Python, RAG, LangChain, FAISS, Streamlit, Google Generative AI Embeddings, Groq, Llama 3, PDF Processing
+\ifdefined\ResumeProjectMode
+  \def\ProjectDocumentStart{}
+  \def\ProjectDocumentEnd{}
+\else
+  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \input{../project-blob.sty}
+  \def\ProjectDocumentStart{\begin{document}}
+  \def\ProjectDocumentEnd{\end{document}}
+\fi
+\ProjectDocumentStart
+\ProjectBlob
+  {Document Question Answering System}
+  {https://github.com/kartikaysaxena/q-a-rag}
+  {Machine Learning, AI Engineering, RAG, Python}
+  {Python, RAG, LangChain, FAISS, Streamlit, Google Embeddings, Groq, Llama 3}
+  {Streamlit retrieval-augmented generation application for answering questions from PDF document collections.}
+  {
+    \ProjectBullet{document-qa-app}{Python, Streamlit, RAG, PDF Processing}
+      {Built a Streamlit document-question-answering application that ingests local PDF collections and answers user queries from retrieved context.}
+    \ProjectBullet{retrieval-pipeline}{LangChain, FAISS, Google Generative AI Embeddings, Text Chunking}
+      {Implemented a LangChain ingestion pipeline with PDF loading, recursive 1,000-character chunks with 200-character overlap, Google embeddings, and a FAISS vector store.}
+    \ProjectBullet{grounded-generation}{Retrieval, LangChain, Groq, Llama 3, Prompt Engineering}
+      {Connected a FAISS retriever to a context-constrained document chain and Groq-hosted Llama 3 generation for grounded question answering.}
+    \ProjectBullet{interactive-workflow}{Streamlit, State Management, Performance Measurement, User Experience}
+      {Persisted embeddings in Streamlit session state so users can ingest once, ask multiple questions, and inspect response timing in the same interactive workflow.}
+  }
+\ProjectDocumentEnd

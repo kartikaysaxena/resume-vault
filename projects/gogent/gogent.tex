@@ -1,0 +1,33 @@
+% project-id: gogent
+% project-name: gogent
+% repository-url: https://github.com/kartikaysaxena/gogent
+% source-revision: ab83240fdfc810fef1955ba7d33cff137388a215
+% role-families: backend, golang, platform, ai engineering, developer tools
+% skills: Go, AI Agents, OpenTelemetry, SQLite, MCP, A2A, RAG, Multi-Agent Systems, Provider Abstractions, CLI, SSE
+\ifdefined\ResumeProjectMode
+  \def\ProjectDocumentStart{}
+  \def\ProjectDocumentEnd{}
+\else
+  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \input{../project-blob.sty}
+  \def\ProjectDocumentStart{\begin{document}}
+  \def\ProjectDocumentEnd{\end{document}}
+\fi
+\ProjectDocumentStart
+\ProjectBlob
+  {gogent}
+  {https://github.com/kartikaysaxena/gogent}
+  {Backend, Golang, Platform, AI Engineering, Developer Tools}
+  {Go, AI Agents, OpenTelemetry, SQLite, MCP, A2A, RAG, Multi-Agent Systems}
+  {Go-native framework for building, orchestrating, evaluating, and observing AI agents without an external SaaS dependency.}
+  {
+    \ProjectBullet{agent-runtime}{Go, AI Agents, Graph Runtime, Guardrails, Evaluation}
+      {Built a Go-native agent framework with ReAct and plan-and-execute loops, typed tools, graph routing, checkpoints, interrupt/resume, guardrails, and evaluation primitives.}
+    \ProjectBullet{provider-protocols}{Go, Provider Abstractions, Anthropic, OpenAI, Google, AWS Bedrock, MCP, A2A}
+      {Designed modular provider integrations for Anthropic, OpenAI, Google, and Bedrock alongside MCP and A2A client/server support, keeping orchestration code provider-independent.}
+    \ProjectBullet{observability-stack}{OpenTelemetry, SQLite, SSE, CLI, Observability}
+      {Implemented OpenTelemetry-native tracing, an embedded SQLite span store, a live SSE dashboard, and CLI workflows for inspecting and replaying agent runs from one binary.}
+    \ProjectBullet{runtime-benchmarks}{Go Benchmarking, Performance, Memory Optimization, OpenTelemetry}
+      {Benchmarked the graph runtime at roughly 240 ns per node transition with zero happy-path allocations and measured about 8.7 microseconds of tracing overhead per provider call.}
+  }
+\ProjectDocumentEnd
