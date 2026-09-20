@@ -79,14 +79,24 @@ def load_project(project_path: Path) -> dict[str, Any]:
     if not re.fullmatch(r"[0-9a-f]{40}", metadata["source-revision"]):
         raise ValueError(f"{project_path}: source-revision must be a full Git commit SHA")
 
-    bullets = re.findall(r"\\ProjectBullet\{([^{}]+)\}\{([^{}]+)\}", source)
-    if not 3 <= len(bullets) <= 4:
-        raise ValueError(f"{project_path}: expected 3 or 4 reusable ProjectBullet commands")
-    bullet_ids = [bullet_id.strip() for bullet_id, _ in bullets]
+    bullet_ids = [
+        value.strip()
+        for value in re.findall(r"^%\s*bullet-id:\s*(.+?)\s*$", source, re.MULTILINE)
+    ]
+    bullet_skills = [
+        value.strip()
+        for value in re.findall(r"^%\s*bullet-skills:\s*(.+?)\s*$", source, re.MULTILINE)
+    ]
+    rendered_bullets = re.findall(r"^\\item\s*\{", source, re.MULTILINE)
+    if not 3 <= len(bullet_ids) <= 4 or len(rendered_bullets) != len(bullet_ids):
+        raise ValueError(f"{project_path}: expected 3 or 4 tagged resume item bullets")
+    if len(bullet_skills) != len(bullet_ids) or not all(bullet_skills):
+        raise ValueError(f"{project_path}: every bullet requires a bullet-skills comment")
     if len(set(bullet_ids)) != len(bullet_ids) or not all(bullet_ids):
         raise ValueError(f"{project_path}: bullet IDs must be non-empty and unique")
-    if not all(tags.strip() for _, tags in bullets):
-        raise ValueError(f"{project_path}: every bullet requires JD matching tags")
+    required_commands = ("\\resumeSubheading", "\\resumeItemListStart", "\\resumeItemListEnd")
+    if not all(command in source for command in required_commands):
+        raise ValueError(f"{project_path}: project body must use the resume-native command set")
 
     pdf_path = project_path.with_suffix(".pdf")
     if not pdf_path.is_file():
@@ -99,7 +109,7 @@ def load_project(project_path: Path) -> dict[str, Any]:
         "source_revision": metadata["source-revision"],
         "role_families": [value.strip() for value in metadata["role-families"].split(",")],
         "skills": [value.strip() for value in metadata["skills"].split(",")],
-        "bullet_count": len(bullets),
+        "bullet_count": len(bullet_ids),
         "_tex_path": project_path,
         "_pdf_path": pdf_path,
     }

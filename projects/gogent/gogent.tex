@@ -8,26 +8,33 @@
   \def\ProjectDocumentStart{}
   \def\ProjectDocumentEnd{}
 \else
-  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \documentclass[11pt,border=12pt,varwidth=200mm]{standalone}
   \input{../project-blob.sty}
-  \def\ProjectDocumentStart{\begin{document}}
-  \def\ProjectDocumentEnd{\end{document}}
+  \def\ProjectDocumentStart{\begin{document}\resumeSubHeadingListStart}
+  \def\ProjectDocumentEnd{\resumeSubHeadingListEnd\end{document}}
 \fi
 \ProjectDocumentStart
-\ProjectBlob
-  {gogent}
-  {https://github.com/kartikaysaxena/gogent}
-  {Backend, Golang, Platform, AI Engineering, Developer Tools}
-  {Go, AI Agents, OpenTelemetry, SQLite, MCP, A2A, RAG, Multi-Agent Systems}
-  {Go-native framework for building, orchestrating, evaluating, and observing AI agents without an external SaaS dependency.}
-  {
-    \ProjectBullet{agent-runtime}{Go, AI Agents, Graph Runtime, Guardrails, Evaluation}
-      {Built a Go-native agent framework with ReAct and plan-and-execute loops, typed tools, graph routing, checkpoints, interrupt/resume, guardrails, and evaluation primitives.}
-    \ProjectBullet{provider-protocols}{Go, Provider Abstractions, Anthropic, OpenAI, Google, AWS Bedrock, MCP, A2A}
-      {Designed modular provider integrations for Anthropic, OpenAI, Google, and Bedrock alongside MCP and A2A client/server support, keeping orchestration code provider-independent.}
-    \ProjectBullet{observability-stack}{OpenTelemetry, SQLite, SSE, CLI, Observability}
-      {Implemented OpenTelemetry-native tracing, an embedded SQLite span store, a live SSE dashboard, and CLI workflows for inspecting and replaying agent runs from one binary.}
-    \ProjectBullet{runtime-benchmarks}{Go Benchmarking, Performance, Memory Optimization, OpenTelemetry}
-      {Benchmarked the graph runtime at roughly 240 ns per node transition with zero happy-path allocations and measured about 8.7 microseconds of tracing overhead per provider call.}
-  }
+
+\resumeSubheading
+{ gogent} %Project Name
+{\href{https://github.com/kartikaysaxena/gogent}{Github}}
+{A Go framework for LLM agents with built-in OpenTelemetry observability}
+{}
+
+\resumeItemListStart
+% bullet-id: agent-runtime
+% bullet-skills: Go, AI Agents, Graph Runtime, Guardrails, Evaluation
+\item {Built a Go-native agent framework with ReAct and plan-and-execute loops, typed tools, graph routing, checkpoints, interrupt/resume, guardrails, and evaluation primitives.}
+% bullet-id: provider-protocols
+% bullet-skills: Go, Provider Abstractions, Anthropic, OpenAI, Google, AWS Bedrock, MCP, A2A
+\item {Designed modular provider integrations for Anthropic, OpenAI, Google, and Bedrock alongside MCP and A2A client/server support, keeping orchestration code provider-independent.}
+% bullet-id: observability-stack
+% bullet-skills: OpenTelemetry, SQLite, SSE, CLI, Observability
+\item {Implemented OpenTelemetry-native tracing, an embedded SQLite span store, a live SSE dashboard, and CLI workflows for inspecting and replaying agent runs from one binary.}
+% bullet-id: runtime-benchmarks
+% bullet-skills: Go Benchmarking, Performance, Memory Optimization, OpenTelemetry
+\item {Benchmarked the graph runtime at roughly 240 ns per node transition with zero happy-path allocations and measured about 8.7 microseconds of tracing overhead per provider call.}
+\resumeItemListEnd
+\vspace{-2mm}
+
 \ProjectDocumentEnd

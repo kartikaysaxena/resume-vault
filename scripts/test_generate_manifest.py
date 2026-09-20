@@ -40,9 +40,13 @@ class ManifestTests(unittest.TestCase):
                 f"% source-revision: {'1' * 40}\n"
                 "% role-families: backend, ai engineering\n"
                 "% skills: Go, OpenTelemetry\n"
-                "\\ProjectBullet{runtime}{Go}{Built the runtime.}\n"
-                "\\ProjectBullet{tracing}{OpenTelemetry}{Added tracing.}\n"
-                "\\ProjectBullet{tests}{Testing}{Covered the runtime.}\n",
+                "\\resumeSubheading\n{ Agent Runtime}\n{\\href{https://github.com/owner/agent-runtime}{Github}}\n"
+                "{An agent runtime}\n{}\n"
+                "\\resumeItemListStart\n"
+                "% bullet-id: runtime\n% bullet-skills: Go\n\\item {Built the runtime.}\n"
+                "% bullet-id: tracing\n% bullet-skills: OpenTelemetry\n\\item {Added tracing.}\n"
+                "% bullet-id: tests\n% bullet-skills: Testing\n\\item {Covered the runtime.}\n"
+                "\\resumeItemListEnd\n\\vspace{-2mm}\n",
                 encoding="utf-8",
             )
             (project / "agent-runtime.pdf").write_bytes(b"%PDF-project")

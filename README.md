@@ -21,14 +21,15 @@ resume-vault/
 
 ## 🧱 Reusable project blocks
 
-`projects/<project-id>/<project-id>.tex` contains one reusable LaTeX block per portfolio project. Every source file carries its repository evidence commit, role families, and searchable skills in metadata comments, followed by four `\ProjectBullet{id}{JD tags}{text}` commands. Job Mailer can rank projects and individual bullets against a job description, remove weaker bullets, and input the resulting block into a resume.
+`projects/<project-id>/<project-id>.tex` contains one reusable LaTeX block per portfolio project. Its body uses the exact same `\resumeSubheading`, `\resumeItemListStart`, literal `\item {...}`, `\resumeItemListEnd`, and `\vspace{-2mm}` syntax as the active resumes. Repository evidence, role families, skills, bullet IDs, and per-bullet JD tags live in comments, so Job Mailer can rank or remove bullets without changing their resume-native LaTeX structure.
 
-Each block is dual-purpose: it compiles by itself into a cropped PDF preview, or renders as a fragment when `\ResumeProjectMode` is defined by a parent resume. The shared rendering contract lives in `projects/project-blob.sty`.
+Each block is dual-purpose: it compiles by itself into a cropped PDF preview that mirrors the current resume typography and spacing, or becomes a direct drop-in entry when `\ResumeProjectMode` is defined inside the parent resume's project list. `projects/project-blob.sty` only supplies copies of the existing resume macros for standalone preview compilation.
 
 ```tex
-\usepackage{projects/project-blob}
-\newcommand{\ResumeProjectMode}{}
+\resumeSubHeadingListStart
+\def\ResumeProjectMode{}
 \input{projects/gogent/gogent.tex}
+\resumeSubHeadingListEnd
 ```
 
 The Pages build validates every source, publishes its compiled preview beside it, and generates a discovery catalog:

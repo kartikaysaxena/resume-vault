@@ -1,5 +1,5 @@
 % project-id: kimi-k3-impl
-% project-name: smol-kimi-k3
+% project-name: Kimi-K3-Impl
 % repository-url: https://github.com/kartikaysaxena/kimi-k3-impl
 % source-revision: e6aeb54ae1c8e49688bb77d2b1b8af4a6ba0431b
 % role-families: research, ai research, machine learning, ml systems
@@ -8,26 +8,33 @@
   \def\ProjectDocumentStart{}
   \def\ProjectDocumentEnd{}
 \else
-  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \documentclass[11pt,border=12pt,varwidth=200mm]{standalone}
   \input{../project-blob.sty}
-  \def\ProjectDocumentStart{\begin{document}}
-  \def\ProjectDocumentEnd{\end{document}}
+  \def\ProjectDocumentStart{\begin{document}\resumeSubHeadingListStart}
+  \def\ProjectDocumentEnd{\resumeSubHeadingListEnd\end{document}}
 \fi
 \ProjectDocumentStart
-\ProjectBlob
-  {smol-kimi-k3}
-  {https://github.com/kartikaysaxena/kimi-k3-impl}
-  {Research, AI Research, Machine Learning, ML Systems}
-  {Python, PyTorch, Triton, CUDA, Kimi Delta Attention, Gated MLA, MoE, Muon}
-  {Training-oriented 49M-parameter reproduction of the Kimi K3 language backbone that runs on a single 8GB GPU.}
-  {
-    \ProjectBullet{architecture-reproduction}{PyTorch, Kimi Delta Attention, Gated MLA, Mixture of Experts}
-      {Reproduced a 49,019,770-parameter Kimi K3-inspired language model with 9 Kimi Delta Attention layers, 4 Gated MLA layers, Attention Residuals, and Stable LatentMoE.}
-    \ProjectBullet{single-gpu-training}{Model Training, PyTorch, BF16, TinyStories, CUDA}
-      {Trained the model from scratch on TinyStories using BF16 on a single RTX 4060 Laptop GPU; selected the step-9,750 checkpoint at 1.6277 validation loss.}
-    \ProjectBullet{kernels-and-optimization}{Triton, CUDA, Autoregressive Decoding, Muon, Performance Optimization}
-      {Integrated chunkwise Triton KDA kernels, cached KDA/MLA autoregressive decoding, Muon and Per-Head Muon optimization, and an FP32 recurrent CPU fallback.}
-    \ProjectBullet{training-system}{Experiment Tracking, Checkpointing, Testing, Matplotlib}
-      {Built atomic checkpointing and a live training dashboard for loss, throughput, VRAM, and samples; verified architecture, causality, decoding, and artifacts with 6 tests.}
-  }
+
+\resumeSubheading
+{ Kimi-K3-Impl} %Project Name
+{\href{https://github.com/kartikaysaxena/kimi-k3-impl}{Github}}
+{Reproduction of a 49M-parameter Kimi K3-inspired language model, trained on a single 8GB GPU}
+{}
+
+\resumeItemListStart
+% bullet-id: architecture-reproduction
+% bullet-skills: PyTorch, Kimi Delta Attention, Gated MLA, Mixture of Experts
+\item {Reproduced a 49,019,770-parameter Kimi K3-inspired language model with 9 Kimi Delta Attention layers, 4 Gated MLA layers, Attention Residuals, and Stable LatentMoE.}
+% bullet-id: single-gpu-training
+% bullet-skills: Model Training, PyTorch, BF16, TinyStories, CUDA
+\item {Trained the model from scratch on TinyStories using BF16 on a single RTX 4060 Laptop GPU; selected the step-9,750 checkpoint at 1.6277 validation loss.}
+% bullet-id: kernels-and-optimization
+% bullet-skills: Triton, CUDA, Autoregressive Decoding, Muon, Performance Optimization
+\item {Integrated chunkwise Triton KDA kernels, cached KDA/MLA autoregressive decoding, Muon and Per-Head Muon optimization, and an FP32 recurrent CPU fallback.}
+% bullet-id: training-system
+% bullet-skills: Experiment Tracking, Checkpointing, Testing, Matplotlib
+\item {Built atomic checkpointing and a live training dashboard for loss, throughput, VRAM, and samples; verified architecture, causality, decoding, and artifacts with 6 tests.}
+\resumeItemListEnd
+\vspace{-2mm}
+
 \ProjectDocumentEnd

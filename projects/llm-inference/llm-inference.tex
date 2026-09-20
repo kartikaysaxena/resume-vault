@@ -8,26 +8,33 @@
   \def\ProjectDocumentStart{}
   \def\ProjectDocumentEnd{}
 \else
-  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \documentclass[11pt,border=12pt,varwidth=200mm]{standalone}
   \input{../project-blob.sty}
-  \def\ProjectDocumentStart{\begin{document}}
-  \def\ProjectDocumentEnd{\end{document}}
+  \def\ProjectDocumentStart{\begin{document}\resumeSubHeadingListStart}
+  \def\ProjectDocumentEnd{\resumeSubHeadingListEnd\end{document}}
 \fi
 \ProjectDocumentStart
-\ProjectBlob
-  {LLM Inference Engine}
-  {https://github.com/kartikaysaxena/llm-inference}
-  {Machine Learning, ML Systems, AI Engineering, Inference}
-  {Python, PyTorch, KV Cache, Continuous Batching, Paged KV Cache, FastAPI, CUDA}
-  {Production-inspired PyTorch LLM inference and serving engine with caching, scheduling, paged memory, and measured optimization layers.}
-  {
-    \ProjectBullet{inference-stack}{Python, PyTorch, LLM Inference, Continuous Batching, Paged KV Cache}
-      {Built a production-inspired LLM inference engine from scratch in PyTorch with GPT-2 and Mistral model paths, KV caching, continuous batching, paged memory, and asynchronous serving.}
-    \ProjectBullet{kv-cache-benchmark}{KV Cache, CUDA, GPU Profiling, Performance Benchmarking}
-      {Achieved a 2.22x decode-throughput speedup at 1,000 generated tokens and reduced CUDA time by 46.6\% using a preallocated KV cache on an A100.}
-    \ProjectBullet{batch-throughput}{Batch Inference, GPU Optimization, PyTorch, Performance Benchmarking}
-      {Scaled GPT-2 124M throughput from 155 to 18,346 tokens/second through batched inference, a 118.3x gain at batch size 512 on an A100.}
-    \ProjectBullet{paged-serving}{Paged KV Cache, Continuous Batching, Concurrency, Testing}
-      {Reduced peak KV-cache memory by up to 35.9\% and delivered up to 3.2x higher throughput under 64 concurrent requests; covered the stack with 122 tests across 15 files.}
-  }
+
+\resumeSubheading
+{ LLM Inference Engine} %Project Name
+{\href{https://github.com/kartikaysaxena/llm-inference}{Github}}
+{A from-scratch LLM inference engine in PyTorch (KV cache, batching, paged memory)}
+{}
+
+\resumeItemListStart
+% bullet-id: inference-stack
+% bullet-skills: Python, PyTorch, LLM Inference, Continuous Batching, Paged KV Cache
+\item {Built a production-inspired LLM inference engine from scratch in PyTorch with GPT-2 and Mistral model paths, KV caching, continuous batching, paged memory, and asynchronous serving.}
+% bullet-id: kv-cache-benchmark
+% bullet-skills: KV Cache, CUDA, GPU Profiling, Performance Benchmarking
+\item {Achieved a 2.22x decode-throughput speedup at 1,000 generated tokens and reduced CUDA time by 46.6\% using a preallocated KV cache on an A100.}
+% bullet-id: batch-throughput
+% bullet-skills: Batch Inference, GPU Optimization, PyTorch, Performance Benchmarking
+\item {Scaled GPT-2 124M throughput from 155 to 18,346 tokens/second through batched inference, a 118.3x gain at batch size 512 on an A100.}
+% bullet-id: paged-serving
+% bullet-skills: Paged KV Cache, Continuous Batching, Concurrency, Testing
+\item {Reduced peak KV-cache memory by up to 35.9\% and delivered up to 3.2x higher throughput under 64 concurrent requests; covered the stack with 122 tests across 15 files.}
+\resumeItemListEnd
+\vspace{-2mm}
+
 \ProjectDocumentEnd

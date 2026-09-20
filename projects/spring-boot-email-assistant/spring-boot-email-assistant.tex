@@ -8,26 +8,33 @@
   \def\ProjectDocumentStart{}
   \def\ProjectDocumentEnd{}
 \else
-  \documentclass[border=12pt,varwidth=7.25in]{standalone}
+  \documentclass[11pt,border=12pt,varwidth=200mm]{standalone}
   \input{../project-blob.sty}
-  \def\ProjectDocumentStart{\begin{document}}
-  \def\ProjectDocumentEnd{\end{document}}
+  \def\ProjectDocumentStart{\begin{document}\resumeSubHeadingListStart}
+  \def\ProjectDocumentEnd{\resumeSubHeadingListEnd\end{document}}
 \fi
 \ProjectDocumentStart
-\ProjectBlob
-  {Smart Email Assistant}
-  {https://github.com/kartikaysaxena/spring-boot-email-assistant}
-  {Backend, Full Stack, Java, AI Engineering}
-  {Java 17, Spring Boot 3, WebFlux, Gemini API, React, Chrome Extension}
-  {AI-assisted email reply system with a Spring Boot API, React client, and Gmail extension.}
-  {
-    \ProjectBullet{spring-rest-generation}{Java 17, Spring Boot 3, REST APIs, Gemini API}
-      {Built a Java 17 and Spring Boot 3 REST service that converts email context and a requested tone into AI-generated replies through the Gemini API.}
-    \ProjectBullet{reactive-provider-client}{Spring WebFlux, WebClient, JSON, REST APIs}
-      {Implemented a WebClient-based provider integration with prompt construction and JSON response parsing behind the \texttt{POST /api/email/generate} endpoint.}
-    \ProjectBullet{gmail-extension}{Chrome Extension, Manifest V3, JavaScript, DOM APIs}
-      {Developed a Manifest V3 Chrome extension that detects Gmail compose windows, injects an AI Reply control, calls the backend, and inserts generated text into the editor.}
-    \ProjectBullet{react-email-client}{React, Vite, Material UI, Axios}
-      {Created a React and Material UI client for email input, professional/casual/friendly tone selection, generated-reply display, and clipboard copy.}
-  }
+
+\resumeSubheading
+{ Smart Email Assistant} %Project Name
+{\href{https://github.com/kartikaysaxena/spring-boot-email-assistant}{Github}}
+{AI-assisted email reply system with a Spring Boot API, React client, and Gmail extension}
+{}
+
+\resumeItemListStart
+% bullet-id: spring-rest-generation
+% bullet-skills: Java 17, Spring Boot 3, REST APIs, Gemini API
+\item {Built a Java 17 and Spring Boot 3 REST service that converts email context and a requested tone into AI-generated replies through the Gemini API.}
+% bullet-id: reactive-provider-client
+% bullet-skills: Spring WebFlux, WebClient, JSON, REST APIs
+\item {Implemented a WebClient-based provider integration with prompt construction and JSON response parsing behind the POST /api/email/generate endpoint.}
+% bullet-id: gmail-extension
+% bullet-skills: Chrome Extension, Manifest V3, JavaScript, DOM APIs
+\item {Developed a Manifest V3 Chrome extension that detects Gmail compose windows, injects an AI Reply control, calls the backend, and inserts generated text into the editor.}
+% bullet-id: react-email-client
+% bullet-skills: React, Vite, Material UI, Axios
+\item {Created a React and Material UI client for email input, professional/casual/friendly tone selection, generated-reply display, and clipboard copy.}
+\resumeItemListEnd
+\vspace{-2mm}
+
 \ProjectDocumentEnd
