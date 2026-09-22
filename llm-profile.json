@@ -99,8 +99,6 @@
       "MongoDB",
       "MySQL",
       "Prometheus",
-      "Apache Kafka",
-      "Thanos",
       "OpenTelemetry"
     ],
     "languages": [
@@ -115,7 +113,7 @@
       "SQL"
     ]
   },
-  "source_revision": "de0a9ca1275202f007408d896ad25101c6ff4057",
+  "source_revision": "19440b2cf86d9b2d450fb3866ca256999e7152f2",
   "summary": "Machine learning engineer with hands-on model training, PyTorch architecture work, and production-inspired LLM serving and optimization experience.",
   "version": 1
 }
