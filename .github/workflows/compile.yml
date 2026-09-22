@@ -70,7 +70,9 @@ jobs:
             echo "has_tex=false" >> "$GITHUB_OUTPUT"
           fi
 
-          grep -E '\.tex$' "$list" | sort -u > "${list}.tmp" || true
+          while IFS= read -r source; do
+            [ -f "$source" ] && printf '%s\n' "$source"
+          done < "$list" | grep -E '\.tex$' | sort -u > "${list}.tmp" || true
           mv "${list}.tmp" "$list"
 
           if [ -s "$list" ]; then

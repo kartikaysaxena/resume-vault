@@ -32,8 +32,10 @@ def active_sources(root: Path) -> list[tuple[dict[str, Any], Path]]:
         if total_size > MAX_SOURCE_BYTES:
             raise ValueError(f"active resume sources exceed {MAX_SOURCE_BYTES} bytes")
         sources.append((metadata, source))
-    if not sources:
-        raise ValueError("no active resume sources found")
+    if len(sources) != 1:
+        raise ValueError(
+            f"expected exactly one active canonical resume source, found {len(sources)}"
+        )
     return sources
 
 

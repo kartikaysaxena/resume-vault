@@ -76,6 +76,34 @@ class ManifestTests(unittest.TestCase):
             self.assertIn("agent-runtime.tex", catalog["projects"][0]["tex_url"])
             self.assertIn("agent-runtime.pdf", catalog["projects"][0]["pdf_url"])
 
+    def test_rejects_multiple_active_base_resumes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "llm-profile.json").write_text(json.dumps({
+                "version": 1, "name": "Kartikay", "source_revision": "abc123",
+            }), encoding="utf-8")
+            for resume_id in ("one", "two"):
+                folder = root / resume_id
+                folder.mkdir()
+                (folder / f"{resume_id}.tex").write_text("tex", encoding="utf-8")
+                (folder / f"{resume_id}.pdf").write_bytes(b"%PDF-test")
+                (folder / "resume.json").write_text(json.dumps({
+                    "id": resume_id,
+                    "display_name": resume_id.title(),
+                    "status": "active",
+                    "source": f"{resume_id}.tex",
+                    "pdf": f"{resume_id}.pdf",
+                    "role_families": ["engineering"],
+                    "skills": ["Python"],
+                    "summary": "Canonical resume",
+                }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "exactly one active canonical resume"):
+                build_manifest(
+                    root, root / "_site", "owner/vault", "abc123",
+                    "https://owner.github.io/vault",
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

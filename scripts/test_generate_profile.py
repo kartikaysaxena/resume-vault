@@ -35,6 +35,22 @@ class ProfileTests(unittest.TestCase):
             write_profile(output, profile, "abc123")
             self.assertEqual(json.loads(output.read_text())["source_revision"], "abc123")
 
+    def test_rejects_multiple_active_resume_sources(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for resume_id in ("one", "two"):
+                folder = root / resume_id
+                folder.mkdir()
+                (folder / "resume.tex").write_text("resume", encoding="utf-8")
+                (folder / "resume.json").write_text(json.dumps({
+                    "id": resume_id,
+                    "status": "active",
+                    "source": "resume.tex",
+                }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "exactly one active canonical resume"):
+                active_sources(root)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,23 +1,21 @@
 # 📄 Resume Vault
 
-Central repository for **Kartikay's** resumes. Each supported role has its own folder containing the **LaTeX source** (`.tex`), its **compiled PDF**, and compact selection metadata in `resume.json`. Placeholder folders are ignored until their artifacts and metadata are ready.
+Canonical resume source and reusable project evidence for **Kartikay**. The vault deliberately publishes one base resume; job-specific variants are generated on demand in Job Mailer's Application Studio instead of being stored here.
 
 ## 🗂️ Folder structure
 
 ```
 resume-vault/
-├── software_engineer/     ← Software Engineer resume (live, auto-compiled)
-│   ├── software-engineer.tex
-│   ├── software-engineer.pdf
+├── research_engineer/     ← canonical AI Research Engineer base
+│   ├── research-engineer.tex
+│   ├── research-engineer.pdf
 │   └── resume.json
-├── research_engineer/     ← AI Research Engineer variant (live)
-├── ml_engineer/           ← Machine Learning Engineer variant (live)
 ├── projects/              ← reusable, evidence-backed project blocks
 ├── llm-profile.json       ← generated compact candidate context
 └── .github/workflows/     ← auto-compile pipeline
 ```
 
-**Convention:** one folder per role. `resume.json` declares its source, PDF, role families, skills, and short summary. Job Mailer uses that small record to select a variant without sending every complete résumé to an LLM.
+**Invariant:** exactly one active `resume.json` must exist. The Pages build rejects zero or multiple active resumes. Job Mailer treats this record as the canonical base, ranks the independent project catalog for each job, injects the selected project pair, and then runs the normal factual tailoring flow.
 
 ## 🧱 Reusable project blocks
 
@@ -46,12 +44,12 @@ https://kartikaysaxena.github.io/resume-vault/projects/<project-id>/<project-id>
 
 A GitHub Actions workflow (`.github/workflows/compile.yml`) keeps each PDF in sync with its `.tex`:
 
-- **Trigger:** any push that changes a `.tex` file (in any role folder), or a manual `workflow_dispatch` run.
+- **Trigger:** any push that changes a `.tex` file, or a manual `workflow_dispatch` run.
 - **Action:** compiles every changed `.tex` with **TeX Live 2025 + pdflatex** (`latexmk`) inside GitHub Actions — the same generation Overleaf uses, not latexonline.cc.
 - **Page gate:** validates every active PDF and fails the build unless each resume is exactly one page.
 - **Commit:** the freshly compiled `.pdf` is committed back into the same folder.
 - **Profile:** on every TeX change, the workflow asks an OpenAI-compatible model for one factual JSON profile and commits it at the repository root.
-- **Publish:** active PDFs and a validated `manifest.json` catalog are deployed to **GitHub Pages**. TeX remains available from its pinned GitHub source revision rather than being copied into Pages.
+- **Publish:** the canonical PDF and a validated `manifest.json` are deployed to **GitHub Pages**. TeX remains available from its pinned GitHub source revision rather than being copied into Pages.
 - **Project catalog:** reusable project blocks are validated and deployed alongside the resume catalog for deterministic JD matching.
 - **Result:** the PDF in a folder is always up-to-date with its `.tex`, and always reachable at the same shareable link.
 
@@ -62,7 +60,7 @@ Each resume has a permanent URL derived from its folder + filename. It never cha
 https://kartikaysaxena.github.io/resume-vault/<folder>/<resume>.pdf
 ```
 
-Example: `https://kartikaysaxena.github.io/resume-vault/software_engineer/software-engineer.pdf`
+Canonical resume: `https://kartikaysaxena.github.io/resume-vault/research_engineer/research-engineer.pdf`
 
 Catalog: `https://kartikaysaxena.github.io/resume-vault/manifest.json`
 
@@ -75,17 +73,18 @@ Set the repository Actions secret `PROFILE_LLM_API_KEY`. Optional Actions variab
 > CI uses a full TeX Live 2025 image, so package availability matches a current Overleaf `pdflatex` project. The template still uses `fontawesome` (v4) rather than `fontawesome5`; both are present in TeX Live 2025.
 
 
-## ➕ How to add / update a resume
+## ➕ How to update the resume system
 
-1. **Edit an existing role:** edit `software_engineer/software-engineer.tex`, commit + push → the workflow recompiles and updates the PDF automatically. No need to compile locally.
-2. **Add a new role:** create a folder, add its `.tex`, compiled `.pdf`, and `resume.json`, then push. The workflow validates and publishes the active variant.
+1. **Update the canonical base:** edit `research_engineer/research-engineer.tex`, commit, and push. The workflow recompiles and updates its PDF automatically.
+2. **Add project evidence:** add a validated block under `projects/<project-id>/`. Application Studio can then rank and inject it without adding another stored resume variant.
+3. **Generate a role-specific variant:** open a job in Application Studio. It starts from the canonical base, selects two reusable projects, applies factual JD-aware edits, compiles a one-page PDF, and stores that generated application artifact outside this vault.
 
 > Note: the PDF is a **build artifact** — always edit the `.tex`, never the `.pdf`. The workflow will regenerate the PDF from source.
 
 ## 🧑‍💻 For agents (and humans)
 
 - **Always edit `.tex` files**, never the committed `.pdf`.
-- Keep `resume.json` skills factual: Job Mailer uses this list as the allow-list for deterministic ATS keyword additions.
+- Keep the canonical `resume.json` skills factual: Job Mailer uses this list as the allow-list for deterministic ATS keyword additions.
 - The workflow keeps PDFs in sync — you usually don't need to compile locally.
 - If a resume uses custom classes/packages, ensure they're referenced correctly or committed alongside (this template is self-contained and uses standard TeX packages: `tcolorbox`, `fontawesome5`, `hyperref`, `tabularx`, etc.).
-- Role folders without a resume are placeholders — add the `.tex` when ready.
+- Do not add role-specific resume folders. Add reusable evidence to `projects/` and let Application Studio generate the variant.
