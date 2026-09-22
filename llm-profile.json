@@ -2,9 +2,9 @@
   "achievements": [],
   "contact": {
     "email": "kartikay_2101ce32@iitp.ac.in",
-    "github": "kartikaysaxena",
-    "linkedin": "kartikay-saxena-33ba01223",
-    "website": "ksaxena.tech"
+    "github": "https://github.com/kartikaysaxena",
+    "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
+    "website": "https://ksaxena.tech"
   },
   "education": [
     {
@@ -116,7 +116,7 @@
       "SQL"
     ]
   },
-  "source_revision": "d9ae35f986088442bb10f2b32c3f18f76b3b5349",
+  "source_revision": "2449eeb9b4f5dac16df4505ba2ebab88e7a7c152",
   "summary": "AI research engineer focused on reproducing model architectures, training compact language models, and implementing efficient LLM inference systems.",
   "version": 1
 }
