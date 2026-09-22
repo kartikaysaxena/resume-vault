@@ -172,9 +172,9 @@
 { AI Research Engineer}{Bengaluru}
 {Metafore}{January 2026 - Present}
 \resumeItemListStart
-\item {Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.}
-\item {Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.}
-\item {Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD).}
+\item {Built an end-to-end fine-tuning platform spanning dataset preparation, training, and deployment.}
+\item {Engineered ontology-aware knowledge graph workflows with LLM agents to structure and reason over domain data.}
+\item {Built a UI-driven agent generator that scaffolds production agents directly from Business Requirements Documents.}
 \resumeItemListEnd
 
 \vspace{-2mm}
@@ -182,10 +182,10 @@
 { Software Engineering Consultant}{Bengaluru}
 {Assured Health Technologies}{August 2025 - Jan 2026}
 \resumeItemListStart
-\item {Created 17 data migration scripts in Python that ran across the database to update various fields.}
-\item {Used AWS for deployment and automated production operations using CloudFormation, decreasing deployment time by 67\%.}
-\item {Optimized Django API to reduce time from 35.7s to 3.7s using indexes and removing extra mutational queries on prefetching.}
-\item {Utilized Bun runtime to reduce compile and run time by 53\%.}
+\item {Created 17 Python data-migration scripts to update fields across production database records.}
+\item {Automated AWS production deployments with CloudFormation, decreasing deployment time by 67\%.}
+\item {Cut Django API latency from 35.7s to 3.7s using indexes and optimized prefetch queries.}
+\item {Adopted the Bun runtime to reduce application compile and execution time by 53\%.}
 \resumeItemListEnd
 
 \vspace{-2mm}
@@ -193,10 +193,10 @@
 { Software Engineering Intern under LitmusChaos}{Remote}
 {Cloud Native Computing Foundation Intern}{July 2024 - September 2024}
 \resumeItemListStart
-\item {Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30\% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.}
-\item {Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.}
-\item {Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.}
-\item {Optimized the login API of the Auth server by 98.84\% by bringing down the latency from 1.73s to 15.87ms.}
+\item {Built a Litmus upgrade agent that streamlined version transitions and reduced manual intervention by 30\%.}
+\item {Engineered sequential upgrade pipelines for control-plane components and database migrations.}
+\item {Automated MongoDB schema upgrades for every Litmus release through versioned manifests.}
+\item {Optimized the Auth server login API, cutting latency 98.84\% from 1.73s to 15.87ms.}
 \resumeItemListEnd
 
 
@@ -206,9 +206,9 @@
 { Google Summer Of Code (Intern at Organic Maps)}{Remote}
 {Software Developer Intern}{April 2023 - July 2023}
 \resumeItemListStart
-\item {Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9\% uptime on Cloudflare Workers.}
-\item {Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60\%.}
-\item {Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30\% across mobile platforms.}
+\item {Built a TypeScript/NodeJS proxy serving 50K+ daily requests at 99.9\% uptime on Cloudflare Workers.}
+\item {Converted Google Maps URIs into mobile-ready custom formats, reducing application load time by 60\%.}
+\item {Integrated the proxy across iOS and Android clients, improving mobile data-fetch speed by 30\%.}
 \resumeItemListEnd
     
 
@@ -232,10 +232,10 @@
 {}
 
 \resumeItemListStart
-\item {Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.}
-\item {Achieved 2.22× decode speedup from KV caching at 1K tokens.}
-\item {Gained 118× throughput via batched inference on A100; cut memory 8.7× with a paged cache.}
-\item {Hit 11.1× serving throughput under 64 concurrent users; validated across 122 tests.}
+\item {Built a PyTorch LLM engine for GPT-2/Mistral with KV caching, continuous batching, and paged memory.}
+\item {Increased decode throughput 2.22x and cut CUDA time 46.6\% with preallocated KV cache on A100.}
+\item {Scaled GPT-2 124M from 155 to 18,346 tokens/s (118.3x) at batch size 512 on A100.}
+\item {Cut peak KV memory 35.9\%, reached 3.2x throughput at 64 concurrent requests, and added 122 tests.}
 \resumeItemListEnd
 \vspace{-2mm}
 
@@ -247,10 +247,10 @@
 {}
 
 \resumeItemListStart
-\item {Designed a Go framework for building LLM agents, providing a structured runtime for tool use, provider integration, and agent orchestration.}
-\item {Built in OpenTelemetry observability to emit traces and metrics for agent runs, making multi-step agent pipelines debuggable and monitorable.}
-\item {Abstracted LLM provider access behind a common interface, supporting multiple providers and enabling drop-in swapping without changing agent code.}
-\item {Included a memory subsystem and examples suite to demonstrate reusable agent patterns out of the box.}
+\item {Built a Go agent framework with ReAct, plan-and-execute, typed tools, graph routing, and guardrails.}
+\item {Unified Anthropic, OpenAI, Google, Bedrock, MCP, and A2A behind provider-neutral interfaces.}
+\item {Added OpenTelemetry tracing, a SQLite span store, an SSE dashboard, and CLI replay.}
+\item {Benchmarked 240ns zero-allocation node transitions and 8.7 microseconds tracing overhead per provider call.}
 \resumeItemListEnd
 \vspace{-2mm}
 
