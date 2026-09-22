@@ -4,7 +4,7 @@
     "email": "kartikay_2101ce32@iitp.ac.in",
     "github": "https://github.com/kartikaysaxena",
     "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
-    "website": "https://ksaxena.tech"
+    "website": "ksaxena.tech"
   },
   "education": [
     {
@@ -16,9 +16,9 @@
   "experience": [
     {
       "highlights": [
-        "Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.",
-        "Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.",
-        "Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD)."
+        "Built an end-to-end fine-tuning platform spanning dataset preparation, training, and deployment",
+        "Engineered ontology-aware knowledge graph workflows with LLM agents to structure and reason over domain data",
+        "Built a UI-driven agent generator that scaffolds production agents directly from Business Requirements Documents"
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
@@ -26,10 +26,10 @@
     },
     {
       "highlights": [
-        "Created 17 data migration scripts in Python that ran across the database to update various fields.",
-        "Used AWS for deployment and automated production operations using CloudFormation, decreasing deployment time by 67%.",
-        "Optimized Django API to reduce time from 35.7s to 3.7s using indexes and removing extra mutational queries on prefetching.",
-        "Utilized Bun runtime to reduce compile and run time by 53%."
+        "Created 17 Python data-migration scripts to update fields across production database records",
+        "Automated AWS production deployments with CloudFormation, decreasing deployment time by 67%",
+        "Cut Django API latency from 35.7s to 3.7s using indexes and optimized prefetch queries",
+        "Adopted the Bun runtime to reduce application compile and execution time by 53%"
       ],
       "organization": "Assured Health Technologies",
       "period": "August 2025 - Jan 2026",
@@ -37,24 +37,24 @@
     },
     {
       "highlights": [
-        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.",
-        "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
-        "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
-        "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
+        "Built a Litmus upgrade agent that streamlined version transitions and reduced manual intervention by 30%",
+        "Engineered sequential upgrade pipelines for control-plane components and database migrations",
+        "Automated MongoDB schema upgrades for every Litmus release through versioned manifests",
+        "Optimized the Auth server login API, cutting latency 98.84% from 1.73s to 15.87ms"
       ],
-      "organization": "Cloud Native Computing Foundation Intern",
+      "organization": "Cloud Native Computing Foundation",
       "period": "July 2024 - September 2024",
       "role": "Software Engineering Intern under LitmusChaos"
     },
     {
       "highlights": [
-        "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
-        "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
-        "Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30% across mobile platforms."
+        "Built a TypeScript/NodeJS proxy serving 50K+ daily requests at 99.9% uptime on Cloudflare Workers",
+        "Converted Google Maps URIs into mobile-ready custom formats, reducing application load time by 60%",
+        "Integrated the proxy across iOS and Android clients, improving mobile data-fetch speed by 30%"
       ],
       "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
-      "role": "Software Developer Intern"
+      "role": "Software Developer Intern (Google Summer of Code)"
     }
   ],
   "headline": "Machine Learning Engineer",
@@ -62,10 +62,10 @@
   "projects": [
     {
       "highlights": [
-        "Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.",
-        "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
-        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
-        "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
+        "Built a PyTorch LLM engine for GPT-2/Mistral with KV caching, continuous batching, and paged memory",
+        "Increased decode throughput 2.22x and cut CUDA time 46.6% with preallocated KV cache on A100",
+        "Scaled GPT-2 124M from 155 to 18,346 tokens/s (118.3x) at batch size 512 on A100",
+        "Cut peak KV memory 35.9%, reached 3.2x throughput at 64 concurrent requests, and added 122 tests"
       ],
       "name": "LLM Inference Engine",
       "summary": "A from-scratch LLM inference engine in PyTorch (KV cache, batching, paged memory)",
@@ -73,10 +73,10 @@
     },
     {
       "highlights": [
-        "Reproduced and trained a 49M-parameter, Kimi K3-inspired language model on TinyStories using a single RTX 4060 Laptop GPU.",
-        "Studied and understood K3's core architecture: Kimi Delta Attention (KDA), Gated MLA, Stable LatentMoE, and Attention Residuals.",
-        "Worked with Muon and Per-Head Muon optimizers, custom KDA/MLA Triton kernels, and cached autoregressive decoding.",
-        "Got a compact reproduction of a 2.8T-parameter frontier model running locally, verified with 6 passing tests."
+        "Reproduced a 49M-parameter Kimi K3 model with KDA, Gated MLA, Attention Residuals, and Stable LatentMoE",
+        "Trained on TinyStories in BF16 on one RTX 4060; selected step 9,750 at 1.6277 validation loss",
+        "Integrated Triton KDA kernels, cached KDA/MLA decoding, Muon optimizers, and FP32 CPU fallback",
+        "Added atomic checkpoints, live metrics, and 6 architecture, causality, decoding, and artifact tests"
       ],
       "name": "Kimi-K3-Impl",
       "summary": "Reproduction of a 49M-parameter Kimi K3-inspired language model, trained on a single 8GB GPU",
@@ -96,10 +96,11 @@
       "AWS",
       "Docker",
       "Kubernetes",
-      "MongoDB",
-      "MySQL",
       "Prometheus",
-      "OpenTelemetry"
+      "Apache Kafka",
+      "OpenTelemetry",
+      "MongoDB",
+      "MySQL"
     ],
     "languages": [
       "Python",
@@ -113,7 +114,7 @@
       "SQL"
     ]
   },
-  "source_revision": "19440b2cf86d9b2d450fb3866ca256999e7152f2",
+  "source_revision": "f160efbc692e5e31f1a7a780f9e007a1fd37af29",
   "summary": "Machine learning engineer with hands-on model training, PyTorch architecture work, and production-inspired LLM serving and optimization experience.",
   "version": 1
 }
