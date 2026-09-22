@@ -4,7 +4,7 @@
     "email": "kartikay_2101ce32@iitp.ac.in",
     "github": "https://github.com/kartikaysaxena",
     "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
-    "website": "ksaxena.tech"
+    "website": "https://ksaxena.tech"
   },
   "education": [
     {
@@ -22,7 +22,7 @@
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
-      "role": "Machine Learning Engineer"
+      "role": "AI Research Engineer"
     },
     {
       "highlights": [
@@ -37,12 +37,12 @@
     },
     {
       "highlights": [
-        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades.",
+        "Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.",
         "Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.",
         "Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.",
         "Optimized the login API of the Auth server by 98.84% by bringing down the latency from 1.73s to 15.87ms."
       ],
-      "organization": "Cloud Native Computing Foundation",
+      "organization": "Cloud Native Computing Foundation Intern",
       "period": "July 2024 - September 2024",
       "role": "Software Engineering Intern under LitmusChaos"
     },
@@ -50,11 +50,11 @@
       "highlights": [
         "Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9% uptime on Cloudflare Workers.",
         "Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60%.",
-        "Integrated the proxy seamlessly into both iOS and Android applications, improving data fetching speed by 30%."
+        "Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30% across mobile platforms."
       ],
       "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
-      "role": "Software Developer Intern (Google Summer of Code)"
+      "role": "Software Developer Intern"
     }
   ],
   "headline": "Machine Learning Engineer",
@@ -62,9 +62,9 @@
   "projects": [
     {
       "highlights": [
-        "Built with KV caching, continuous batching, and paged memory.",
+        "Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.",
         "Achieved 2.22\u00d7 decode speedup from KV caching at 1K tokens.",
-        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with paged cache.",
+        "Gained 118\u00d7 throughput via batched inference on A100; cut memory 8.7\u00d7 with a paged cache.",
         "Hit 11.1\u00d7 serving throughput under 64 concurrent users; validated across 122 tests."
       ],
       "name": "LLM Inference Engine",
@@ -73,8 +73,8 @@
     },
     {
       "highlights": [
-        "Reproduced and trained a 49M-parameter model on TinyStories using a single RTX 4060 Laptop GPU.",
-        "Studied K3's core architecture: Kimi Delta Attention (KDA), Gated MLA, Stable LatentMoE, and Attention Residuals.",
+        "Reproduced and trained a 49M-parameter, Kimi K3-inspired language model on TinyStories using a single RTX 4060 Laptop GPU.",
+        "Studied and understood K3's core architecture: Kimi Delta Attention (KDA), Gated MLA, Stable LatentMoE, and Attention Residuals.",
         "Worked with Muon and Per-Head Muon optimizers, custom KDA/MLA Triton kernels, and cached autoregressive decoding.",
         "Got a compact reproduction of a 2.8T-parameter frontier model running locally, verified with 6 passing tests."
       ],
@@ -96,11 +96,12 @@
       "AWS",
       "Docker",
       "Kubernetes",
+      "MongoDB",
+      "MySQL",
       "Prometheus",
       "Apache Kafka",
-      "OpenTelemetry",
-      "MongoDB",
-      "MySQL"
+      "Thanos",
+      "OpenTelemetry"
     ],
     "languages": [
       "Python",
@@ -114,7 +115,7 @@
       "SQL"
     ]
   },
-  "source_revision": "b5248e3ad135b1ae723c7fe75797f4a94dd562cf",
+  "source_revision": "de0a9ca1275202f007408d896ad25101c6ff4057",
   "summary": "Machine learning engineer with hands-on model training, PyTorch architecture work, and production-inspired LLM serving and optimization experience.",
   "version": 1
 }
