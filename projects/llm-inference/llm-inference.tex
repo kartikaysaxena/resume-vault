@@ -24,16 +24,16 @@
 \resumeItemListStart
 % bullet-id: inference-stack
 % bullet-skills: Python, PyTorch, LLM Inference, Continuous Batching, Paged KV Cache
-\item {Built a PyTorch LLM engine for GPT-2/Mistral with KV caching, continuous batching, and paged memory.}
+\item {Built a PyTorch LLM engine for GPT-2/Mistral with KV caching, continuous batching, paged memory, and async APIs.}
 % bullet-id: kv-cache-benchmark
 % bullet-skills: KV Cache, CUDA, GPU Profiling, Performance Benchmarking
-\item {Increased decode throughput 2.22x and cut CUDA time 46.6\% with preallocated KV cache on A100.}
+\item {Increased decode throughput 2.22x and cut CUDA execution time 46.6\% using a preallocated KV cache on one A100 GPU.}
 % bullet-id: batch-throughput
 % bullet-skills: Batch Inference, GPU Optimization, PyTorch, Performance Benchmarking
-\item {Scaled GPT-2 124M from 155 to 18,346 tokens/s (118.3x) at batch size 512 on A100.}
+\item {Scaled GPT-2 124M throughput from 155 to 18,346 tokens/second, a 118.3x gain at batch size 512 on one A100 GPU.}
 % bullet-id: paged-serving
 % bullet-skills: Paged KV Cache, Continuous Batching, Concurrency, Testing
-\item {Cut peak KV memory 35.9\%, reached 3.2x throughput at 64 concurrent requests, and added 122 tests.}
+\item {Cut KV-cache memory 35.9\%, reached 3.2x throughput at 64 concurrent requests, and validated behavior with 122 tests.}
 \resumeItemListEnd
 \vspace{-2mm}
 
