@@ -24,16 +24,16 @@
 \resumeItemListStart
 % bullet-id: architecture-reproduction
 % bullet-skills: PyTorch, Kimi Delta Attention, Gated MLA, Mixture of Experts
-\item {Reproduced a 49M-parameter Kimi K3-inspired model with 9 KDA layers, 4 Gated MLA layers, Attention Residuals, and Stable LatentMoE.}
+\item {Reproduced a 49M-parameter Kimi K3 model with KDA, Gated MLA, Attention Residuals, and Stable LatentMoE layers.}
 % bullet-id: single-gpu-training
 % bullet-skills: Model Training, PyTorch, BF16, TinyStories, CUDA
-\item {Trained on TinyStories in BF16 on one RTX 4060 Laptop GPU; selected step 9,750 at 1.6277 validation loss.}
+\item {Trained on TinyStories in BF16 on one RTX 4060 Laptop GPU; selected final checkpoint 9,750 at 1.6277 validation loss.}
 % bullet-id: kernels-and-optimization
 % bullet-skills: Triton, CUDA, Autoregressive Decoding, Muon, Performance Optimization
-\item {Integrated Triton KDA kernels, cached KDA/MLA decoding, Muon optimizers, and an FP32 CPU fallback.}
+\item {Integrated Triton KDA kernels, cached KDA/MLA autoregressive decoding, Muon optimizers, and an FP32 CPU fallback.}
 % bullet-id: training-system
 % bullet-skills: Experiment Tracking, Checkpointing, Testing, Matplotlib
-\item {Added atomic checkpoints, live training metrics, and 6 tests for architecture, causality, decoding, and artifacts.}
+\item {Added atomic checkpoints, live training metrics, and 6 tests covering architecture, causality, decoding, and artifact integrity.}
 \resumeItemListEnd
 \vspace{-2mm}
 

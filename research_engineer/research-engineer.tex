@@ -172,9 +172,9 @@
 { AI Research Engineer}{Bengaluru}
 {Metafore}{January 2026 - Present}
 \resumeItemListStart
-\item {Built an end-to-end model fine-tuning platform, streamlining the pipeline from dataset preparation through training to deployment for downstream teams.}
-\item {Engineered ontology-aware knowledge graph workflows integrated with LLM agents to structure and reason over domain data.}
-\item {Developed a UI-driven agent generator that scaffolds production agents directly from a Business Requirements Document (BRD).}
+\item {Built an end-to-end fine-tuning platform spanning dataset preparation, model training, deployment, and downstream delivery.}
+\item {Engineered ontology-aware knowledge graph workflows with LLM agents to structure and reason over complex domain data.}
+\item {Built a UI-driven agent generator that scaffolds production agents directly from detailed Business Requirements Documents.}
 \resumeItemListEnd
 
 \vspace{-2mm}
@@ -182,10 +182,10 @@
 { Software Engineering Consultant}{Bengaluru}
 {Assured Health Technologies}{August 2025 - Jan 2026}
 \resumeItemListStart
-\item {Created 17 data migration scripts in Python that ran across the database to update various fields.}
-\item {Used AWS for deployment and automated production operations using CloudFormation, decreasing deployment time by 67\%.}
-\item {Optimized Django API to reduce time from 35.7s to 3.7s using indexes and removing extra mutational queries on prefetching.}
-\item {Utilized Bun runtime to reduce compile and run time by 53\%.}
+\item {Created and executed 17 Python data-migration scripts across the production database to update multiple application fields.}
+\item {Automated AWS deployments and operations with CloudFormation, decreasing overall end-to-end deployment time by 67\%.}
+\item {Cut Django API latency from 35.7s to 3.7s using database indexes and eliminating redundant mutational prefetch queries.}
+\item {Adopted the Bun JavaScript runtime across application workflows, reducing combined compilation and runtime by 53\%.}
 \resumeItemListEnd
 
 \vspace{-2mm}
@@ -193,10 +193,10 @@
 { Software Engineering Intern under LitmusChaos}{Remote}
 {Cloud Native Computing Foundation Intern}{July 2024 - September 2024}
 \resumeItemListStart
-\item {Developed an upgrade agent streamlining version transitions for Litmus, leading to a 30\% reduction in manual intervention time during upgrades and enhancing overall user experience across the platform.}
-\item {Engineered sequential upgrade pipeline reducing version migration time for control plane and database updates.}
-\item {Automated the process of upgrading the MongoDB schema with every new version of Litmus via manifests.}
-\item {Optimized the login API of the Auth server by 98.84\% by bringing down the latency from 1.73s to 15.87ms.}
+\item {Built a Litmus upgrade agent that streamlined version transitions and reduced manual intervention by 30\% during upgrades.}
+\item {Engineered sequential upgrade pipelines that reduced version-migration time for control-plane and Litmus database updates.}
+\item {Automated MongoDB schema migrations for every new Litmus version through release-specific deployment manifests.}
+\item {Optimized the Auth server login API by 98.84\%, reducing measured login latency from 1.73 seconds to 15.87 milliseconds.}
 \resumeItemListEnd
 
 
@@ -206,9 +206,9 @@
 { Google Summer Of Code (Intern at Organic Maps)}{Remote}
 {Software Developer Intern}{April 2023 - July 2023}
 \resumeItemListStart
-\item {Built high-performance proxy using TypeScript and NodeJS, serving 50K+ requests/day with 99.9\% uptime on Cloudflare Workers.}
-\item {Architected proxy to convert Google Maps URIs to custom formats, reducing load time by 60\%.}
-\item {Integrated the newly prepared proxy seamlessly into both iOS and Android applications, enabling a streamlined API interaction that improved data fetching speed by 30\% across mobile platforms.}
+\item {Built a TypeScript/NodeJS proxy serving 50K+ daily requests at 99.9\% uptime on Cloudflare Workers edge infrastructure.}
+\item {Converted Google Maps URIs into mobile-ready custom formats, reducing application load time by 60\% for mobile clients.}
+\item {Integrated the proxy across iOS and Android clients via streamlined API calls, improving mobile data-fetch speed by 30\%.}
 \resumeItemListEnd
     
 
@@ -232,10 +232,10 @@
 {}
 
 \resumeItemListStart
-\item {Built a from-scratch LLM inference engine in PyTorch with KV caching, continuous batching, and paged memory.}
-\item {Achieved 2.22× decode speedup from KV caching at 1K tokens.}
-\item {Gained 118× throughput via batched inference on A100; cut memory 8.7× with a paged cache.}
-\item {Hit 11.1× serving throughput under 64 concurrent users; validated across 122 tests.}
+\item {Built a PyTorch LLM engine for GPT-2/Mistral with KV caching, continuous batching, paged memory, and async APIs.}
+\item {Increased decode throughput 2.22x and cut CUDA execution time 46.6\% using a preallocated KV cache on one A100 GPU.}
+\item {Scaled GPT-2 124M throughput from 155 to 18,346 tokens/second, a 118.3x gain at batch size 512 on one A100 GPU.}
+\item {Cut KV-cache memory 35.9\%, reached 3.2x throughput at 64 concurrent requests, and validated behavior with 122 tests.}
 \resumeItemListEnd
 \vspace{-2mm}
 
@@ -247,10 +247,10 @@
 {}
 
 \resumeItemListStart
-\item {Reproduced and trained a 49M-parameter, Kimi K3-inspired language model on TinyStories using a single RTX 4060 Laptop GPU.}
-\item {Studied and understood K3's core architecture: Kimi Delta Attention (KDA), Gated MLA, Stable LatentMoE, and Attention Residuals.}
-\item {Worked with Muon and Per-Head Muon optimizers, custom KDA/MLA Triton kernels, and cached autoregressive decoding.}
-\item {Got a compact reproduction of a 2.8T-parameter frontier model running locally, verified with 6 passing tests.}
+\item {Reproduced a 49M-parameter Kimi K3 model with KDA, Gated MLA, Attention Residuals, and Stable LatentMoE layers.}
+\item {Trained on TinyStories in BF16 on one RTX 4060 Laptop GPU; selected final checkpoint 9,750 at 1.6277 validation loss.}
+\item {Integrated Triton KDA kernels, cached KDA/MLA autoregressive decoding, Muon optimizers, and an FP32 CPU fallback.}
+\item {Added atomic checkpoints, live training metrics, and 6 tests covering architecture, causality, decoding, and artifact integrity.}
 \resumeItemListEnd
 \vspace{-2mm}
 
