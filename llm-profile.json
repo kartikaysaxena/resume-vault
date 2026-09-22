@@ -4,7 +4,7 @@
     "email": "kartikay_2101ce32@iitp.ac.in",
     "github": "https://github.com/kartikaysaxena",
     "linkedin": "https://www.linkedin.com/in/kartikay-saxena-33ba01223/",
-    "website": "ksaxena.tech"
+    "website": "https://ksaxena.tech"
   },
   "education": [
     {
@@ -18,7 +18,8 @@
       "highlights": [
         "Built an end-to-end fine-tuning platform spanning dataset preparation, model training, deployment, and downstream delivery.",
         "Engineered ontology-aware knowledge graph workflows with LLM agents to structure and reason over complex domain data.",
-        "Built a UI-driven agent generator that scaffolds production agents directly from detailed Business Requirements Documents."
+        "Built a UI-driven agent generator that scaffolds production agents directly from detailed Business Requirements Documents.",
+        "Built MetaFabric's Salesforce migration flow for metadata discovery, ontology mapping, extraction, validation, and lineage."
       ],
       "organization": "Metafore",
       "period": "January 2026 - Present",
@@ -54,7 +55,7 @@
       ],
       "organization": "Organic Maps",
       "period": "April 2023 - July 2023",
-      "role": "Software Developer Intern"
+      "role": "Software Engineering Intern"
     }
   ],
   "headline": "AI Research Engineer",
@@ -115,7 +116,7 @@
       "SQL"
     ]
   },
-  "source_revision": "2b0d1186ff493cec641a8fb80c02f949de495113",
+  "source_revision": "453d08dff8e4a1573f5c3a7dbbb322a804d79072",
   "summary": "AI research engineer focused on reproducing model architectures, training compact language models, and implementing efficient LLM inference systems.",
   "version": 1
 }
