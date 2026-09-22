@@ -227,8 +227,10 @@ def build_manifest(
         )
         resumes.append(metadata)
 
-    if not resumes:
-        raise ValueError("no active resumes found")
+    if len(resumes) != 1:
+        raise ValueError(
+            f"expected exactly one active canonical resume, found {len(resumes)}"
+        )
 
     project_catalog_path = build_project_catalog(
         root, site, revision, pages_base_url,
